@@ -21,9 +21,14 @@ html, body {
 	clear:both;
 }
 
+div#main_frame {
+	padding:4px;
+}
+
 div.equip_table_container {
 	float:left;
 	border:2px solid #ccc;
+	margin-right:1px;
 }
 
 table#weapons_table {
@@ -52,6 +57,7 @@ table.equip_table td {
 
 div.stats_table_container {
 	float:right;
+	margin-left:1px;
 }
 
 table.stats_table {
@@ -76,6 +82,8 @@ table.stats_table td {
 fieldset#items_container {
 	border-radius:2px;
 	border:1px solid #aaa;
+	max-height:300px;
+	overflow-y:scroll;
 }
 
 div.list_item {
@@ -87,6 +95,7 @@ div.list_item {
 	text-align:center;
 	padding:4px;
 	cursor:pointer;
+	overflow:hidden;
 }
 
 div.list_item:hover {

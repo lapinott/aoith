@@ -1,0 +1,99 @@
+html, body {
+	margin:0;
+	padding:0;
+	font-family:sans-serif;
+	font-size:0.95em;
+}
+
+.ce {
+	border:1px dotted #ccc;
+	min-width:50px;
+}
+
+.nce {
+	border:1px solid #ccc;
+	min-width:50px;
+	background:#ddd;
+	*font-weight:bold;
+}
+
+.cb {
+	clear:both;
+}
+
+div.equip_table_container {
+	float:left;
+	border:2px solid #ccc;
+}
+
+table#weapons_table {
+	background:url(img/GFX_GUI_WEARVIEW_BG1.png) no-repeat center center;
+}
+
+table#armor_table {
+	background:url(img/GFX_GUI_WEARVIEW_BG1.png) no-repeat center center;
+}
+
+table#implants_table {
+	background:url(img/GFX_GUI_WEARVIEW_BG2.png) no-repeat center center;
+}
+
+table.equip_table > tbody {
+	color:white;
+	text-shadow:0 0 2px black;
+}
+
+table.equip_table td {
+	background:rgba(0, 0, 0, 0.25);
+	width:100px;
+	height:75px;
+	text-align:center;
+}
+
+div.stats_table_container {
+	float:right;
+}
+
+table.stats_table {
+	border:1px solid #ccc;
+}
+
+table.stats_table > thead {
+	font-weight:bold;
+	background:gray;
+	color:white;
+	text-align:center;
+}
+
+table.stats_table > thead td {
+	padding:1px 0;
+}
+
+table.stats_table td {
+	padding:0 2px;
+}
+
+fieldset#items_container {
+	border-radius:2px;
+	border:1px solid #aaa;
+}
+
+div.list_item {
+	display:inline-block;
+	width:92px;
+	height:92px;
+	border:1px solid #ddd;
+	margin:0 2px 2px 0;
+	text-align:center;
+	padding:4px;
+	cursor:pointer;
+}
+
+div.list_item:hover {
+	background:#eee;
+	border-color:#777;
+}
+
+div.list_item_name {
+	font-size:0.7em;
+}

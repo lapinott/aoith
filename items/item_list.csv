@@ -1,0 +1,4 @@
+#type[weapon, armor, implant], slot, name, image, str, sta, agi, sense, int, psy, treat
+w,6|8,Explosif's Polychromatic Pillows,257708.gif,0,0,0,0,10,10,0
+w,6|8,Explosif's Polychromatic Pillows,257709.gif,10,10,0,0,0,0,0
+w,6|8,Explosif's Polychromatic Pillows,257710.gif,0,0,10,10,0,0,0

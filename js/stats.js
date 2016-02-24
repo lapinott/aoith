@@ -15,43 +15,100 @@ Stats = function () {
 	this.html_twinked_psy = document.getElementById('twinked_psy');
 	this.html_twinked_treat = document.getElementById('twinked_treat');
 	
-	this.base_str = parseInt(this.html_base_str.innerHTML);
-	this.base_sta = parseInt(this.html_base_sta.innerHTML);
-	this.base_agi = parseInt(this.html_base_agi.innerHTML);
-	this.base_sen = parseInt(this.html_base_sen.innerHTML);
-	this.base_int = parseInt(this.html_base_int.innerHTML);
-	this.base_psy = parseInt(this.html_base_psy.innerHTML);
-	this.base_treat = parseInt(this.html_base_treat.innerHTML);
+	this.base_str = parseInt(this.html_base_str.value);
+	this.base_sta = parseInt(this.html_base_sta.value);
+	this.base_agi = parseInt(this.html_base_agi.value);
+	this.base_sen = parseInt(this.html_base_sen.value);
+	this.base_int = parseInt(this.html_base_int.value);
+	this.base_psy = parseInt(this.html_base_psy.value);
+	this.base_treat = parseInt(this.html_base_treat.value);
 	
-	this.buff_str = 0;
-	this.buff_sta = 0;
-	this.buff_agi = 0;
-	this.buff_sen = 0;
-	this.buff_int = 0;
-	this.buff_psy = 0;
-	this.buff_treat = 0;
+	this.twinked_str = 0;
+	this.twinked_sta = 0;
+	this.twinked_agi = 0;
+	this.twinked_sen = 0;
+	this.twinked_int = 0;
+	this.twinked_psy = 0;
+	this.twinked_treat = 0;
+	
+	this.get_stat = function (stat) {
+		switch (stat) {
+			case 'str' : return this.base_str + this.twinked_str;
+			case 'sta' : return this.base_sta + this.twinked_sta;
+			case 'agi' : return this.base_agi + this.twinked_agi;
+			case 'sen' : return this.base_sen + this.twinked_sen;
+			case 'int' : return this.base_int + this.twinked_int;
+			case 'psy' : return this.base_psy + this.twinked_psy;
+			case 'treat' : return this.base_treat + this.twinked_treat;
+			default : return 0;
+		}
+	}
 	
 	this.refresh_stats_twinked_values = function () {
-		this.html_twinked_str.innerHTML = this.base_str + this.buff_str;
-		this.html_twinked_sta.innerHTML = this.base_sta + this.buff_sta;
-		this.html_twinked_agi.innerHTML = this.base_agi + this.buff_agi;
-		this.html_twinked_sen.innerHTML = this.base_sen + this.buff_sen;
-		this.html_twinked_int.innerHTML = this.base_int + this.buff_int;
-		this.html_twinked_psy.innerHTML = this.base_psy + this.buff_psy;
-		this.html_twinked_treat.innerHTML = this.base_treat + this.buff_treat;
+		this.html_twinked_str.innerHTML = this.base_str + this.twinked_str;
+		this.html_twinked_sta.innerHTML = this.base_sta + this.twinked_sta;
+		this.html_twinked_agi.innerHTML = this.base_agi + this.twinked_agi;
+		this.html_twinked_sen.innerHTML = this.base_sen + this.twinked_sen;
+		this.html_twinked_int.innerHTML = this.base_int + this.twinked_int;
+		this.html_twinked_psy.innerHTML = this.base_psy + this.twinked_psy;
+		this.html_twinked_treat.innerHTML = this.base_treat + this.twinked_treat;
 	}
 	
 	this.change_base_stats_cell = function (el) {
 		switch (el.id) {
-			case 'base_str' : this.base_str = parseInt(this.html_base_str.innerHTML); break;
-			case 'base_sta' : this.base_sta = parseInt(this.html_base_sta.innerHTML); break;
-			case 'base_agi' : this.base_agi = parseInt(this.html_base_agi.innerHTML); break;
-			case 'base_sen' : this.base_sen = parseInt(this.html_base_sen.innerHTML); break;
-			case 'base_int' : this.base_int = parseInt(this.html_base_int.innerHTML); break;
-			case 'base_psy' : this.base_psy = parseInt(this.html_base_psy.innerHTML); break;
-			case 'base_treat' : this.base_treat = parseInt(this.html_base_treat.innerHTML); break;
+			case 'base_str' : this.base_str = parseInt(this.html_base_str.value); break;
+			case 'base_sta' : this.base_sta = parseInt(this.html_base_sta.value); break;
+			case 'base_agi' : this.base_agi = parseInt(this.html_base_agi.value); break;
+			case 'base_sen' : this.base_sen = parseInt(this.html_base_sen.value); break;
+			case 'base_int' : this.base_int = parseInt(this.html_base_int.value); break;
+			case 'base_psy' : this.base_psy = parseInt(this.html_base_psy.value); break;
+			case 'base_treat' : this.base_treat = parseInt(this.html_base_treat.value); break;
 			default : break;
 		}
+		this.refresh_stats_twinked_values();
+	}
+	
+	this.add_wa_to_twink = function (equippable) {
+		if (equippable.str > 0) this.twinked_str += equippable.str;
+		if (equippable.sta > 0) this.twinked_sta += equippable.sta;
+		if (equippable.agi > 0) this.twinked_agi += equippable.agi;
+		if (equippable.sen > 0) this.twinked_sen += equippable.sen;
+		if (equippable.intel > 0) this.twinked_int += equippable.intel;
+		if (equippable.psy > 0) this.twinked_psy += equippable.psy;
+		if (equippable.treat > 0) this.twinked_treat += equippable.treat;
+		this.refresh_stats_twinked_values();
+	}
+	
+	this.remove_wa_from_twink = function (equippable) {
+		if (equippable.str > 0) this.twinked_str -= equippable.str;
+		if (equippable.sta > 0) this.twinked_sta -= equippable.sta;
+		if (equippable.agi > 0) this.twinked_agi -= equippable.agi;
+		if (equippable.sen > 0) this.twinked_sen -= equippable.sen;
+		if (equippable.intel > 0) this.twinked_int -= equippable.intel;
+		if (equippable.psy > 0) this.twinked_psy -= equippable.psy;
+		if (equippable.treat > 0) this.twinked_treat -= equippable.treat;
+		this.refresh_stats_twinked_values();
+	}
+	
+	this.add_i_to_twink = function (equippable) {
+		if (equippable.str > 0) this.twinked_str += equippable.str;
+		if (equippable.sta > 0) this.twinked_sta += equippable.sta;
+		if (equippable.agi > 0) this.twinked_agi += equippable.agi;
+		if (equippable.sen > 0) this.twinked_sen += equippable.sen;
+		if (equippable.intel > 0) this.twinked_int += equippable.intel;
+		if (equippable.psy > 0) this.twinked_psy += equippable.psy;
+		if (equippable.treat > 0) this.twinked_treat += equippable.treat;
+		this.refresh_stats_twinked_values();
+	}
+	
+	this.remove_i_from_twink = function (equippable) {
+		if (equippable.str > 0) this.twinked_str -= equippable.str;
+		if (equippable.sta > 0) this.twinked_sta -= equippable.sta;
+		if (equippable.agi > 0) this.twinked_agi -= equippable.agi;
+		if (equippable.sen > 0) this.twinked_sen -= equippable.sen;
+		if (equippable.intel > 0) this.twinked_int -= equippable.intel;
+		if (equippable.psy > 0) this.twinked_psy -= equippable.psy;
+		if (equippable.treat > 0) this.twinked_treat -= equippable.treat;
 		this.refresh_stats_twinked_values();
 	}
 }

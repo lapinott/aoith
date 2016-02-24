@@ -7,15 +7,61 @@ Slot = function (el) {
 	this.background_empty = el.style.background;
 	this.text_bkp = el.innerHTML;
 	
-	this.equip_equippable = function (item_id) {
-		if (this.has_equippable) {
-			// Unequip item...
+	this.equip_equippable = function (equippable) {
+		switch (equippable.type) {
+			case 'w' :
+			case 'a' :
+				if (this.has_equippable) g_Stats.remove_wa_from_twink(g_Equippables[this.has_equippable_id]);
+				g_Stats.add_wa_to_twink(equippable);
+				this.has_equippable = true;
+				this.has_equippable_id = equippable.id;
+				equippable.equipped_count++;
+				this.html.style.background = 'url(items/img/' + equippable.img + ') no-repeat center center, rgba(55, 255, 55, 0.85)';
+				this.html.innerHTML = "";
+			break;
+			case 'i' :
+				// Calculate best possible ql and relative stats
+				var best_req_abi;
+				var best_req_amount_abi = 0;
+				for (var i = 0; i < equippable.reqs.length;  i++) {
+					if (g_Stats.get_stat(equippable.reqs[i]) > best_req_amount_abi) {
+						best_req_abi = equippable.reqs[i];
+						best_req_amount_abi = g_Stats.get_stat(equippable.reqs[i]);
+					}
+				}
+				
+				// Reverse get correponding ql's
+				var ql_abi = Math.floor((best_req_amount_abi - 4) / 2);
+				var ql_treat = Math.floor((g_Stats.get_stat("treat") - 1249/199) / (940/199));
+				
+				// Take smaller of two
+				var ql_best = ql_abi > ql_treat ? ql_treat : ql_abi;
+				
+				// Compute buffing values
+				if (equippable.buff == "str" || equippable.buff == "sta" || equippable.buff == "agi" || equippable.buff == "sen" || equippable.buff == "int" || equippable.buff == "psy") {
+					if (equippable.potency == "s") equippable.buff_amount = Math.round(50/199 * ql_best + 945/199);
+					if (equippable.potency == "b") equippable.buff_amount = Math.round(30/199 * ql_best + 567/199);
+					if (equippable.potency == "f") equippable.buff_amount = Math.round(20/199 * ql_best + 378/199);
+				}
+				else if (equippable.buff == "treat") {
+					if (equippable.potency == "s") equippable.buff_amount = Math.round(99/199 * ql_best + 1095/199);
+					if (equippable.potency == "b") equippable.buff_amount = Math.round(60/199 * ql_best + 537/199);
+					if (equippable.potency == "f") equippable.buff_amount = Math.round(40/199 * ql_best + 358/199);
+				}
+				alert("QL : " + ql_best + ", buff amount : +" + equippable.buff_amount + " " + equippable.buff);
+				
+				// DISPLAY :  QL X, +Y ABI, Z-BASED
+				
+				if (this.has_equippable) g_Stats.remove_i_from_twink(g_Equippables[this.has_equippable_id]);
+				g_Stats.add_i_to_twink(equippable);
+				this.has_equippable = true;
+				this.has_equippable_id = equippable.id;
+				equippable.equipped_count++;
+				this.html.style.background = 'url(items/img/' + equippable.img + ') no-repeat center center, rgba(55, 255, 55, 0.85)';
+				this.html.innerHTML = "";
+			break;
+			default : break;
 		}
-		instance.has_equippable = true;
-		instance.has_equippable_id = item_id;
-		g_Equippables[item_id].equipped_count++;
-		this.html.style.background = 'url(items/img/' + g_Equippables[item_id].img + ') no-repeat center center, rgba(55, 255, 55, 0.85)';
-		this.html.innerHTML = "";
 	}
 	
 	this.equippable_mouse_over = function () {
@@ -28,6 +74,16 @@ Slot = function (el) {
 	
 	this.slot_right_click = function () {
 		if (this.has_equippable) {
+			switch (g_Equippables[this.has_equippable_id].type) {
+				case 'w' :
+				case 'a' :
+					g_Stats.remove_wa_from_twink(g_Equippables[this.has_equippable_id]);
+				break;
+				case 'i' :
+					g_Stats.remove_i_from_twink(g_Equippables[this.has_equippable_id]);
+				break;
+				default : break;
+			}
 			this.html.style.background = this.background_empty;
 			this.html.innerHTML = this.text_bkp;
 			this.has_equippable = false;

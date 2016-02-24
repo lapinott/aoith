@@ -23,6 +23,10 @@ Item = function(_html, _id, _type, _slots, _name, _img, _str, _sta, _agi, _sen, 
 		if (!this.has_overlay) {
 			this.overlay = document.createElement('div');
 			this.overlay.className = 'equippable_overlay';
+			var span = document.createElement('span');
+			span.innerHTML = "Buffs";
+			span.className = "ul bigger"
+			this.overlay.appendChild(span);
 			if (parseInt(this.str) > 0) {
 				var span = document.createElement('span');
 				span.innerHTML = "Str +" + this.str;

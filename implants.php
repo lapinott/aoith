@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<?php
+	// Init stats
+	$stats = file_get_contents("init_stats.csv");
+	$stats = explode(",", $stats);
+?><!DOCTYPE html>
 <html>
 	<head>
 		<title>AO Implant Twink Helper</title>
@@ -22,31 +26,31 @@
 					<tbody>
 						<tr class="str">
 							<td>Strength</td>
-							<td id="twinked_str" class="nce" contenteditable="false">100</td>
+							<td id="twinked_str" class="nce" contenteditable="false"><?php echo $stats[0]; ?></td>
 						</tr>
 						<tr class="sta">
 							<td>Stamina</td>
-							<td id="twinked_sta" class="nce" contenteditable="false">100</td>
+							<td id="twinked_sta" class="nce" contenteditable="false"><?php echo $stats[1]; ?></td>
 						</tr>
 						<tr class="agi">
 							<td>Agility</td>
-							<td id="twinked_agi" class="nce" contenteditable="false">100</td>
+							<td id="twinked_agi" class="nce" contenteditable="false"><?php echo $stats[2]; ?></td>
 						</tr>
 						<tr class="sen">
 							<td>Sense</td>
-							<td id="twinked_sen" class="nce" contenteditable="false">100</td>
+							<td id="twinked_sen" class="nce" contenteditable="false"><?php echo $stats[3]; ?></td>
 						</tr>
 						<tr class="int">
 							<td>Intelligence</td>
-							<td id="twinked_int" class="nce" contenteditable="false">100</td>
+							<td id="twinked_int" class="nce" contenteditable="false"><?php echo $stats[4]; ?></td>
 						</tr>
 						<tr class="psy">
 							<td>Psychic</td>
-							<td id="twinked_psy" class="nce" contenteditable="false">100</td>
+							<td id="twinked_psy" class="nce" contenteditable="false"><?php echo $stats[5]; ?></td>
 						</tr>
 						<tr class="treat">
 							<td>Treatment</td>
-							<td id="twinked_treat" class="nce" contenteditable="false">300</td>
+							<td id="twinked_treat" class="nce" contenteditable="false"><?php echo $stats[6]; ?></td>
 						</tr>
 					</tbody>
 				</table>
@@ -59,31 +63,31 @@
 					<tbody>
 						<tr class="str">
 							<td>Strength</td>
-							<td><input id="base_str" class="ce" type="text" value="100" oninput="g_Stats.change_base_stats_cell(this);"/></td>
+							<td><input id="base_str" class="ce" type="text" value="<?php echo $stats[0]; ?>" oninput="g_Stats.change_base_stats_cell(this);"/></td>
 						</tr>
 						<tr class="sta">
 							<td>Stamina</td>
-							<td><input id="base_sta" class="ce" type="text" value="100" oninput="g_Stats.change_base_stats_cell(this);"/></td>
+							<td><input id="base_sta" class="ce" type="text" value="<?php echo $stats[1]; ?>" oninput="g_Stats.change_base_stats_cell(this);"/></td>
 						</tr>
 						<tr class="agi">
 							<td>Agility</td>
-							<td><input id="base_agi" class="ce" type="text" value="100" oninput="g_Stats.change_base_stats_cell(this);"/></td>
+							<td><input id="base_agi" class="ce" type="text" value="<?php echo $stats[2]; ?>" oninput="g_Stats.change_base_stats_cell(this);"/></td>
 						</tr>
 						<tr class="sen">
 							<td>Sense</td>
-							<td><input id="base_sen" class="ce" type="text" value="100" oninput="g_Stats.change_base_stats_cell(this);"/></td>
+							<td><input id="base_sen" class="ce" type="text" value="<?php echo $stats[3]; ?>" oninput="g_Stats.change_base_stats_cell(this);"/></td>
 						</tr>
 						<tr class="int">
 							<td>Intelligence</td>
-							<td><input id="base_int" class="ce" type="text" value="100" oninput="g_Stats.change_base_stats_cell(this);"/></td>
+							<td><input id="base_int" class="ce" type="text" value="<?php echo $stats[4]; ?>" oninput="g_Stats.change_base_stats_cell(this);"/></td>
 						</tr>
 						<tr class="psy">
 							<td>Psychic</td>
-							<td><input id="base_psy" class="ce" type="text" value="100" oninput="g_Stats.change_base_stats_cell(this);"/></td>
+							<td><input id="base_psy" class="ce" type="text" value="<?php echo $stats[5]; ?>" oninput="g_Stats.change_base_stats_cell(this);"/></td>
 						</tr>
 						<tr class="treat">
 							<td>Treatment</td>
-							<td><input id="base_treat" class="ce" type="text" value="300" oninput="g_Stats.change_base_stats_cell(this);"/></td>
+							<td><input id="base_treat" class="ce" type="text" value="<?php echo $stats[6]; ?>" oninput="g_Stats.change_base_stats_cell(this);"/></td>
 						</tr>
 					</tbody>
 				</table>

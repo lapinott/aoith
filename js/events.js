@@ -24,19 +24,19 @@ equippable_mouse_right_click = function (equippable_id) {
 	var slots = equippable.slots;
 	var type = equippable.type;
 	if (slots.length == 1) {
-		g_Slots[translate_location_to_slot_id(type, parseInt(slots[0]))].equip_equippable(equippable_id);
+		g_Slots[translate_location_to_slot_id(type, parseInt(slots[0]))].equip_equippable(equippable);
 	}
 	else if (slots.length > 1) {
 		// First equip where there is room, else overwrite
 		for (var i = 0; i < slots.length; i++) {
 			if (!g_Slots[translate_location_to_slot_id(type, parseInt(slots[i]))].has_equippable) {
-				g_Slots[translate_location_to_slot_id(type, parseInt(slots[i]))].equip_equippable(equippable_id);
+				g_Slots[translate_location_to_slot_id(type, parseInt(slots[i]))].equip_equippable(equippable);
 				return false;
 			}
 		}
 		for (var i = 0; i < slots.length; i++) {
 			if (g_Slots[translate_location_to_slot_id(type, parseInt(slots[i]))].has_equippable_id != equippable_id) {
-				g_Slots[translate_location_to_slot_id(type, parseInt(slots[i]))].equip_equippable(equippable_id);
+				g_Slots[translate_location_to_slot_id(type, parseInt(slots[i]))].equip_equippable(equippable);
 				return false;
 			}
 		}

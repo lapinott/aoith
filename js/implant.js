@@ -5,6 +5,7 @@ Implant = function(_html, _id, _type, _slots, _potency, _name, _img, _buff, _req
 	this.type = _type;
 	this.slots = [];
 	this.slots.push(_slots);
+	this.potency = _potency;
 	this.name = _name;
 	this.img = _img;
 	this.buff = _buff;
@@ -12,6 +13,8 @@ Implant = function(_html, _id, _type, _slots, _potency, _name, _img, _buff, _req
 	this.equipped_count = 0;
 	this.overlay = null;
 	this.has_overlay = false;
+	this.buff_amount = 0;
+	this.quality_level = 0;
 	for (var i = 0; i < _reqs.length; i++) this.reqs.push(_reqs[i]);
 	this.text_node = document.createElement('span');
 	

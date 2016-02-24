@@ -1,37 +1,37 @@
 Slot = function (el) {
 	var instance = this;
 	this.html = el;
-	this.has_item = false;
-	this.has_item_id = "";
+	this.has_equippable = false;
+	this.has_equippable_id = "";
 	this.hovered = false;
 	this.background_empty = el.style.background;
 	this.text_bkp = el.innerHTML;
 	
-	this.equip_item = function (item_id) {
-		if (this.has_item) {
+	this.equip_equippable = function (item_id) {
+		if (this.has_equippable) {
 			// Unequip item...
 		}
-		instance.has_item = true;
-		instance.has_item_id = item_id;
-		g_Items[item_id].equipped_count++;
-		this.html.style.background = 'url(items/img/' + g_Items[item_id].img + ') no-repeat center center, rgba(55, 255, 55, 0.85)';
+		instance.has_equippable = true;
+		instance.has_equippable_id = item_id;
+		g_Equippables[item_id].equipped_count++;
+		this.html.style.background = 'url(items/img/' + g_Equippables[item_id].img + ') no-repeat center center, rgba(55, 255, 55, 0.85)';
 		this.html.innerHTML = "";
 	}
 	
-	this.item_list_mouse_over = function () {
-		if (!this.has_item && !this.has_potential_equip_item) this.html.style.background = 'rgba(255, 55, 55, 0.85)';
+	this.equippable_mouse_over = function () {
+		if (!this.has_equippable) this.html.style.background = 'rgba(255, 55, 55, 0.85)';
 	}
 	
-	this.item_list_mouse_out = function () {
-		if (!this.has_item && !this.has_potential_equip_item) this.html.style.background = this.background_empty;
+	this.equippable_mouse_out = function () {
+		if (!this.has_equippable) this.html.style.background = this.background_empty;
 	}
 	
 	this.slot_right_click = function () {
-		if (this.has_item) {
+		if (this.has_equippable) {
 			this.html.style.background = this.background_empty;
 			this.html.innerHTML = this.text_bkp;
-			this.has_item = false;
-			this.has_item_id = "";
+			this.has_equippable = false;
+			this.has_equippable_id = "";
 		}
 	}
 }

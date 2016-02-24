@@ -7,11 +7,50 @@
 		<script type="text/javascript" src="js/scripts.js"></script>
 		<script type="text/javascript" src="js/window.js"></script>
 		<script type="text/javascript" src="js/item.js"></script>
+		<script type="text/javascript" src="js/implant.js"></script>
+		<script type="text/javascript" src="js/slot.js"></script>
+		<script type="text/javascript" src="js/stats.js"></script>
 		<script type="text/javascript" src="js/events.js"></script>
-		<script type="text/javascript" src="js/slots.js"></script>
 	</head>
 	<body>
 		<div id="main_frame">
+			<div id="twinked_stats_container" class="stats_table_container">
+				<table id="twinked_stats" class="stats_table">
+					<thead>
+						<tr><td colspan="2">Twinked stats</td></tr>
+					</thead>
+					<tbody>
+						<tr class="str">
+							<td>Strength</td>
+							<td id="twinked_str" class="nce" contenteditable="false">100</td>
+						</tr>
+						<tr class="sta">
+							<td>Stamina</td>
+							<td id="twinked_sta" class="nce" contenteditable="false">100</td>
+						</tr>
+						<tr class="agi">
+							<td>Agility</td>
+							<td id="twinked_agi" class="nce" contenteditable="false">100</td>
+						</tr>
+						<tr class="sen">
+							<td>Sense</td>
+							<td id="twinked_sen" class="nce" contenteditable="false">100</td>
+						</tr>
+						<tr class="int">
+							<td>Intelligence</td>
+							<td id="twinked_int" class="nce" contenteditable="false">100</td>
+						</tr>
+						<tr class="psy">
+							<td>Psychic</td>
+							<td id="twinked_psy" class="nce" contenteditable="false">100</td>
+						</tr>
+						<tr class="treat">
+							<td>Treatment</td>
+							<td id="twinked_treat" class="nce" contenteditable="false">300</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 			<div id="base_stats_container" class="stats_table_container">
 				<table id="base_stats" class="stats_table">
 					<thead>
@@ -20,68 +59,31 @@
 					<tbody>
 						<tr class="str">
 							<td>Strength</td>
-							<td id="base_str" class="ce" contenteditable="true" onclick="click_base_stats_cell_ce(this);">0</td>
+							<td><input id="base_str" class="ce" type="text" value="100" oninput="g_Stats.change_base_stats_cell(this);"/></td>
 						</tr>
 						<tr class="sta">
 							<td>Stamina</td>
-							<td id="base_sta" class="ce" contenteditable="true" onclick="click_base_stats_cell_ce(this);">0</td>
+							<td><input id="base_sta" class="ce" type="text" value="100" oninput="g_Stats.change_base_stats_cell(this);"/></td>
 						</tr>
 						<tr class="agi">
 							<td>Agility</td>
-							<td id="base_agi" class="ce" contenteditable="true" onclick="click_base_stats_cell_ce(this);">0</td>
+							<td><input id="base_agi" class="ce" type="text" value="100" oninput="g_Stats.change_base_stats_cell(this);"/></td>
 						</tr>
 						<tr class="sen">
 							<td>Sense</td>
-							<td id="base_sen" class="ce" contenteditable="true" onclick="click_base_stats_cell_ce(this);">0</td>
+							<td><input id="base_sen" class="ce" type="text" value="100" oninput="g_Stats.change_base_stats_cell(this);"/></td>
 						</tr>
 						<tr class="int">
 							<td>Intelligence</td>
-							<td id="base_int" class="ce" contenteditable="true" onclick="click_base_stats_cell_ce(this);">0</td>
+							<td><input id="base_int" class="ce" type="text" value="100" oninput="g_Stats.change_base_stats_cell(this);"/></td>
 						</tr>
 						<tr class="psy">
 							<td>Psychic</td>
-							<td id="base_psy" class="ce" contenteditable="true" onclick="click_base_stats_cell_ce(this);">0</td>
+							<td><input id="base_psy" class="ce" type="text" value="100" oninput="g_Stats.change_base_stats_cell(this);"/></td>
 						</tr>
 						<tr class="treat">
 							<td>Treatment</td>
-							<td id="base_treat" class="ce" contenteditable="true" onclick="click_base_stats_cell_ce(this);">0</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div id="updated_stats_container" class="stats_table_container">
-				<table id="updated_stats" class="stats_table">
-					<thead>
-						<tr><td colspan="2">Twinked stats</td></tr>
-					</thead>
-					<tbody>
-						<tr class="str">
-							<td>Strength</td>
-							<td id="updated_str" class="nce" contenteditable="false">0</td>
-						</tr>
-						<tr class="sta">
-							<td>Stamina</td>
-							<td id="updated_sta" class="nce" contenteditable="false">0</td>
-						</tr>
-						<tr class="agi">
-							<td>Agility</td>
-							<td id="updated_agi" class="nce" contenteditable="false">0</td>
-						</tr>
-						<tr class="sen">
-							<td>Sense</td>
-							<td id="updated_sen" class="nce" contenteditable="false">0</td>
-						</tr>
-						<tr class="int">
-							<td>Intelligence</td>
-							<td id="updated_int" class="nce" contenteditable="false">0</td>
-						</tr>
-						<tr class="psy">
-							<td>Psychic</td>
-							<td id="updated_psy" class="nce" contenteditable="false">0</td>
-						</tr>
-						<tr class="treat">
-							<td>Treatment</td>
-							<td id="updated_treat" class="nce" contenteditable="false">0</td>
+							<td><input id="base_treat" class="ce" type="text" value="300" oninput="g_Stats.change_base_stats_cell(this);"/></td>
 						</tr>
 					</tbody>
 				</table>
@@ -189,10 +191,10 @@
 				$fhandle = fopen("items/item_list.csv", "r");
 				$i = 0;
 				while (($line = fgets($fhandle)) !== false) {
-					if ($line[0] !== "#") {
+					if ($line[0] !== "#" && trim($line) != "") {
 						$values = explode(",", $line);
 						$data = Array($i);
-						$data['id'] = md5($i);
+						$data['id'] = md5("item".$i);
 						$data['type'] = $values[0];
 						$data['slots'] = explode("|", $values[1]);
 						$data['name'] = $values[2];
@@ -203,7 +205,7 @@
 						$data['sen'] = $values[7];
 						$data['int'] = $values[8];
 						$data['psy'] = $values[9];
-						$data['treat'] = $values[10];
+						$data['treat'] = trim($values[10]);
 						$items[] = $data;
 						++$i;
 					}
@@ -211,25 +213,94 @@
 				
 				// Print items
 				foreach ($items as $item) {
-					echo "\r\n\t\t\t\t\t<div id=\"".$item['id']."\" class=\"list_item\" oncontextmenu=\"return item_list_mouse_right_click('".$item['id']."');\" onclick=\"item_list_mouse_click('".$item['id']."');\" onmouseover=\"item_list_mouse_over('".$item['id']."');\" onmouseout=\"item_list_mouse_out('".$item['id']."');\">\r\n\t\t\t\t\t\t<div class=\"list_item_img\">\r\n\t\t\t\t\t\t\t<img src=\"items/img/".$item['img']."\" alt=\"".$item['name']."\"/></div>\r\n\t\t\t\t\t\t\t<div class=\"list_item_name\">".$item['name']."\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>";
+					echo "\r\n\t\t\t\t\t<div id=\"".$item['id']."\" class=\"list_equippable\" oncontextmenu=\"return equippable_mouse_right_click('".$item['id']."');\" onclick=\"equippabble_mouse_click('".$item['id']."');\" onmouseover=\"equippable_mouse_over('".$item['id']."');\" onmouseout=\"equippable_mouse_out('".$item['id']."');\">\r\n\t\t\t\t\t\t<div class=\"list_equippable_img\">\r\n\t\t\t\t\t\t\t<img src=\"items/img/".$item['img']."\" alt=\"".$item['name']."\"/></div>\r\n\t\t\t\t\t\t\t<div class=\"list_equippable_name\">".$item['name']."\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>";
 				}
 				echo "\r\n";
 ?>
 				</div>
 			</fieldset>
 			<fieldset id="ability_implants_container">
-				<legend>Implants</legend>
-				<ul>
-					<li>Str buffing implants
-					<li>Agi buffing implants
-					<li>For each req. type etc...
-				</ul>
+				<legend>Ability implants</legend>
+				<div><?php
+				
+				// Get items from file
+				$ability_implants = Array();
+				$ability_implants['str'] = Array();
+				$ability_implants['sta'] = Array();
+				$ability_implants['agi'] = Array();
+				$ability_implants['sen'] = Array();
+				$ability_implants['int'] = Array();
+				$ability_implants['psy'] = Array();
+				$fhandle = fopen("items/ability_implant_list.csv", "r");
+				$i = 0;
+				while (($line = fgets($fhandle)) !== false) {
+					if ($line[0] !== "#" && trim($line) != "") {
+						$values = explode(",", $line);
+						$data = Array($i);
+						$data['id'] = md5("ability".$i);
+						$data['type'] = $values[0];
+						$data['slot'] = $values[1];
+						$data['potency'] = $values[2];
+						$data['name'] = $values[3];
+						$data['img'] = $values[4];
+						$data['buff'] = $values[5];
+						$data['reqs'] = explode("|", trim($values[6]));
+						$ability_implants[$data['buff']][] = $data;
+						++$i;
+					}
+				}
+				
+				// Print items
+				foreach ($ability_implants as $buff => $implants) {
+					echo "\t\t\t\t\t<fieldset>\r\n";
+					if ($buff == 'str') $ability = "Strength";
+					else if ($buff == 'sta') $ability = "Stamina";
+					else if ($buff == 'agi') $ability = "Agility";
+					else if ($buff == 'sen') $ability = "Sense";
+					else if ($buff == 'int') $ability = "Intelligence";
+					else if ($buff == 'psy') $ability = "Psychic";
+					echo "\t\t\t\t\t\t<legend>$ability</legend>\r\n";
+					foreach ($implants as $implant) {
+						echo "\r\n\t\t\t\t\t\t<div id=\"".$implant['id']."\" class=\"list_equippable\" oncontextmenu=\"return equippable_mouse_right_click('".$implant['id']."');\" onclick=\"equippabble_mouse_click('".$implant['id']."');\" onmouseover=\"equippable_mouse_over('".$implant['id']."');\" onmouseout=\"equippable_mouse_out('".$implant['id']."');\">\r\n\t\t\t\t\t\t<div class=\"list_equippable_img\">\r\n\t\t\t\t\t\t\t<img src=\"items/img/".$implant['img']."\" alt=\"".$implant['name']."\"/></div>\r\n\t\t\t\t\t\t\t<div class=\"list_equippable_name\">".$implant['name']."\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>";
+					}
+					echo "\t\t\t\t\t</fieldset>\r\n"; 
+				}
+				echo "\r\n";
+?>
+				</div>
 			</fieldset>
 			<fieldset id="treatment_implants_container">
-				<legend>Treatment</legend>
-				<ul>
-					<li>Head/Eye/Hand per req.
-				</ul>
+				<legend>Treatment implants</legend>
+				<div><?php
+				
+				// Get items from file
+				$treatment_implants = Array();
+				$fhandle = fopen("items/treatment_implant_list.csv", "r");
+				$i = 0;
+				while (($line = fgets($fhandle)) !== false) {
+					if ($line[0] !== "#" && trim($line) != "") {
+						$values = explode(",", $line);
+						$data = Array($i);
+						$data['id'] = md5("treatment".$i);
+						$data['type'] = $values[0];
+						$data['slot'] = $values[1];
+						$data['potency'] = $values[2];
+						$data['name'] = $values[3];
+						$data['img'] = $values[4];
+						$data['buff'] = $values[5];
+						$data['reqs'] = explode("|", trim($values[6]));
+						$treatment_implants[] = $data;
+						++$i;
+					}
+				}
+				
+				// Print items
+				foreach ($treatment_implants as $implant) {
+					echo "\r\n\t\t\t\t\t<div id=\"".$implant['id']."\" class=\"list_equippable\" oncontextmenu=\"return equippable_mouse_right_click('".$implant['id']."');\" onclick=\"equippabble_mouse_click('".$implant['id']."');\" onmouseover=\"equippable_mouse_over('".$implant['id']."');\" onmouseout=\"equippable_mouse_out('".$implant['id']."');\">\r\n\t\t\t\t\t\t<div class=\"list_equippable_img\">\r\n\t\t\t\t\t\t\t<img src=\"items/img/".$implant['img']."\" alt=\"".$implant['name']."\"/></div>\r\n\t\t\t\t\t\t\t<div class=\"list_equippable_name\">".$implant['name']."\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>";
+				}
+				echo "\r\n";
+?>
+				</div>
 			</fieldset>
 			<script type="text/javascript">
 <?php
@@ -238,9 +309,28 @@
 					$jsSlots = "[";
 					foreach ($item['slots'] as $slot) $jsSlots .= ($slot.",");
 					$jsSlots[strlen($jsSlots) - 1] = "]";
-					echo "\t\t\t\tg_Items[\"".$item['id']."\"] = new Item(document.getElementById('".$item['id']."'), '".$item['id']."', '".$item['type']."', $jsSlots, '".addslashes($item['name'])."', '".$item['img']."', ".$item['str'].", ".$item['sta'].", ".$item['agi'].", ".$item['sen'].", ".$item['int'].", ".$item['psy'].", ".$item['treat'].");" . PHP_EOL;
+					echo "\t\t\t\tg_Equippables[\"".$item['id']."\"] = new Item(document.getElementById('".$item['id']."'), '".$item['id']."', '".$item['type']."', $jsSlots, '".addslashes($item['name'])."', '".$item['img']."', ".$item['str'].", ".$item['sta'].", ".$item['agi'].", ".$item['sen'].", ".$item['int'].", ".$item['psy'].", ".$item['treat'].");".PHP_EOL;
 				}
-?>				createSlots();
+				
+				// Create JS treatment implants
+				foreach ($treatment_implants as $implant) {
+					$jsReqs = "[";
+					foreach ($implant['reqs'] as $req) $jsReqs .= ("'".$req."',");
+					$jsReqs[strlen($jsReqs) - 1] = "]";
+					echo "\t\t\t\tg_Equippables[\"".$implant['id']."\"] = new Implant(document.getElementById('".$implant['id']."'), '".$implant['id']."', '".$implant['type']."', '".$implant['slot']."', '".$implant['potency']."', '".addslashes($implant['name'])."', '".$implant['img']."', '".$implant['buff']."', $jsReqs);" . PHP_EOL;
+				}
+				
+				// Create JS ability implants
+				foreach ($ability_implants as $buff => $implants) {
+					foreach ($implants as $implant) {
+						$jsReqs = "[";
+						foreach ($implant['reqs'] as $req) $jsReqs .= ("'".$req."',");
+						$jsReqs[strlen($jsReqs) - 1] = "]";
+						echo "\t\t\t\tg_Equippables[\"".$implant['id']."\"] = new Implant(document.getElementById('".$implant['id']."'), '".$implant['id']."', '".$implant['type']."', '".$implant['slot']."', '".$implant['potency']."', '".addslashes($implant['name'])."', '".$implant['img']."', '".$implant['buff']."', $jsReqs);" . PHP_EOL;
+					}
+				}
+?>				g_Stats = new Stats();
+				createSlots();
 				addEventListeners();
 			</script>
 		</div>

@@ -19,14 +19,10 @@ Item = function(_html, _id, _type, _slots, _name, _img, _str, _sta, _agi, _sen, 
 	for (var i = 0; i < _slots.length; i++) this.slots.push(_slots[i]);
 	this.text_node = document.createElement('span');
 	
-	this.mouse_over = function () {}
-	
-	this.mouse_out = function () {}
-	
 	this.mouse_click = function () {
 		if (!this.has_overlay) {
 			this.overlay = document.createElement('div');
-			this.overlay.className = 'item_overlay';
+			this.overlay.className = 'equippable_overlay';
 			if (parseInt(this.str) > 0) {
 				var span = document.createElement('span');
 				span.innerHTML = "Str +" + this.str;

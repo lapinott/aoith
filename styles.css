@@ -7,18 +7,28 @@ html, body {
 
 .ce {
 	border:1px dotted #ccc;
-	min-width:50px;
+	min-width:75px;
+	max-width:75px;
 }
 
 .nce {
 	border:1px solid #ccc;
-	min-width:50px;
+	min-width:75px;
+	max-width:75px;
 	background:#ddd;
 	*font-weight:bold;
 }
 
 .cb {
 	clear:both;
+}
+
+.ul {
+	text-decoration:underline;
+}
+
+.bigger {
+	font-size:1.1em;
 }
 
 div#main_frame {
@@ -84,9 +94,10 @@ fieldset#items_container {
 	border:1px solid #aaa;
 	max-height:300px;
 	overflow-y:scroll;
+	margin-top:0.5em;
 }
 
-div.list_item {
+div.list_equippable {
 	display:inline-block;
 	width:92px;
 	height:92px;
@@ -99,7 +110,16 @@ div.list_item {
 	position:relative;
 }
 
-div.list_item > div.item_overlay {
+div.list_equippable:hover {
+	background:#eee;
+	border-color:#777;
+}
+
+div.list_equippable_name {
+	font-size:0.7em;
+}
+
+div.list_equippable > div.equippable_overlay {
 	position:absolute;
 	top:1px;
 	left:1px;
@@ -113,15 +133,28 @@ div.list_item > div.item_overlay {
 	font-size:0.7em;
 }
 
-div.list_item > div.item_overlay > span {
+div.list_equippable > div.equippable_overlay > span {
 	display:block;
 }
 
-div.list_item:hover {
-	background:#eee;
-	border-color:#777;
+fieldset#ability_implants_container {
+	border-radius:2px;
+	border:1px solid #aaa;
+	margin-top:0.5em;
 }
 
-div.list_item_name {
+fieldset#ability_implants_container fieldset {
+	display:inline-block;
+	border:1px solid #ccc;
+	border-radius:2px;
+}
+
+fieldset#ability_implants_container fieldset > legend {
 	font-size:0.7em;
+}
+
+fieldset#treatment_implants_container {
+	border-radius:2px;
+	border:1px solid #aaa;
+	margin-top:0.5em;
 }

@@ -1,0 +1,22 @@
+Common stats
+------------
+		Shining		Bright		Faded
+QL200		105		63		42
+QL100		55		33		22
+QL1		6		3		2
+
+Shining	=> 99/199 * QL + 1095/199
+Bright	=> 60/199 * QL + 537/199
+Faded	=> 40/199 * QL + 358/199
+
+
+Abilities
+---------
+		Shining		Bright		Faded
+QL200		55		33		22
+QL100		30		18		12
+QL1		5		3		2
+
+Shining	=> 50/199 * QL + 945/199
+Bright	=> 30/199 * QL + 567/199
+Faded	=> 20/199 * QL + 378/199

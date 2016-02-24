@@ -1,5 +1,5 @@
-// Items container
-var g_Items = [];
+// Equippables container
+var g_Equippables = [];
 
 // Slots container
 var g_Slots = [];
@@ -51,21 +51,19 @@ translate_location_to_slot_id = function (type, slot) {
 		break;
 		case 'i' :
 			switch (slot) {
-				case 0 : return "i_hud_1"; break;
-				case 1 : return "i_hud_2"; break;
-				case 2 : return "i_hud_3"; break;
-				case 3 : return "i_utils_1"; break;
-				case 4 : return "i_utils_2"; break;
-				case 5 : return "i_utils_3"; break;
-				case 6 : return "i_right_hand"; break;
-				case 7 : return "i_deck"; break;
-				case 8 : return "i_left_hand"; break;
-				case 9 : return "i_deck_1"; break;
-				case 10 : return "i_deck_2"; break;
-				case 11 : return "i_deck_3"; break;
-				case 12 : return "i_deck_4"; break;
-				case 13 : return "i_deck_5"; break;
-				case 14 : return "i_deck_6"; break;
+				case 0 : return "i_eyes"; break;
+				case 1 : return "i_head"; break;
+				case 2 : return "i_ears"; break;
+				case 3 : return "i_right_arm"; break;
+				case 4 : return "i_chest"; break;
+				case 5 : return "i_left_arm"; break;
+				case 6 : return "i_right_wrist"; break;
+				case 7 : return "i_waist"; break;
+				case 8 : return "i_left_wrist"; break;
+				case 9 : return "i_right_hand"; break;
+				case 10 : return "i_legs"; break;
+				case 11 : return "i_left_hand"; break;
+				case 13 : return "i_feet"; break;
 				default : alert("Slot '" + slot + "' not found!!"); break;
 			}
 		break;

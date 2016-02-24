@@ -3,10 +3,9 @@ Slot = function (el) {
 	this.html = el;
 	this.has_item = false;
 	this.has_item_id = "";
-	this.background_bkp = el.style.background;
-	this.text_bkp = el.innerHTML;
 	this.hovered = false;
-	this.has_potential_equip_item = false;
+	this.background_empty = el.style.background;
+	this.text_bkp = el.innerHTML;
 	
 	this.equip_item = function (item_id) {
 		if (this.has_item) {
@@ -24,7 +23,16 @@ Slot = function (el) {
 	}
 	
 	this.item_list_mouse_out = function () {
-		if (!this.has_item && !this.has_potential_equip_item) this.html.style.background = this.background_bkp;
+		if (!this.has_item && !this.has_potential_equip_item) this.html.style.background = this.background_empty;
+	}
+	
+	this.slot_right_click = function () {
+		if (this.has_item) {
+			this.html.style.background = this.background_empty;
+			this.html.innerHTML = this.text_bkp;
+			this.has_item = false;
+			this.has_item_id = "";
+		}
 	}
 }
 

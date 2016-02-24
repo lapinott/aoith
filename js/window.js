@@ -26,7 +26,7 @@ translate_location_to_slot_id = function (type, slot) {
 				case 12 : return "w_deck_4"; break;
 				case 13 : return "w_deck_5"; break;
 				case 14 : return "w_deck_6"; break;
-				default : alert("Slot not found!!"); break;
+				default : alert("Slot '" + slot + "' not found!!"); break;
 			}
 		break;
 		case 'a' :
@@ -46,7 +46,7 @@ translate_location_to_slot_id = function (type, slot) {
 				case 12 : return "a_right_finger"; break;
 				case 13 : return "a_feet"; break;
 				case 14 : return "a_left_finger"; break;
-				default : alert("Slot not found!!"); break;
+				default : alert("Slot '" + slot + "' not found!!"); break;
 			}
 		break;
 		case 'i' :
@@ -66,11 +66,62 @@ translate_location_to_slot_id = function (type, slot) {
 				case 12 : return "i_deck_4"; break;
 				case 13 : return "i_deck_5"; break;
 				case 14 : return "i_deck_6"; break;
-				default : alert("Slot not found!!"); break;
+				default : alert("Slot '" + slot + "' not found!!"); break;
 			}
 		break;
 		default :
-			alert("Type not found!!");
+			alert("Type '" + type + "' not found!!");
 		break;
+	}
+}
+
+addEventListeners = function () {
+	var weapon_slots = document.getElementById('weapons_table').getElementsByTagName('td');
+	for (var i = 0; i < weapon_slots.length; i++) {
+		weapon_slots[i].addEventListener('click', function() {
+			//weapon_mouse_click(this.id);
+		});
+		weapon_slots[i].addEventListener('contextmenu', function(event) {
+			weapon_mouse_right_click(this.id);
+			event.preventDefault();
+		});
+		weapon_slots[i].addEventListener('mouseover', function() {
+			//weapon_mouse_over(this.id);
+		});
+		weapon_slots[i].addEventListener('mouseout', function() {
+			//weapon_mouse_out(this.id);
+		});
+	}
+	var armor_slots = document.getElementById('armor_table').getElementsByTagName('td');
+	for (var i = 0; i < armor_slots.length; i++) {
+		armor_slots[i].addEventListener('click', function() {
+			//armor_mouse_click(this);
+		});
+		armor_slots[i].addEventListener('contextmenu', function(event) {
+			armor_mouse_right_click(this.id);
+			event.preventDefault();
+		});
+		armor_slots[i].addEventListener('mouseover', function() {
+			//armor_mouse_over(this);
+		});
+		armor_slots[i].addEventListener('mouseout', function() {
+			//armor_mouse_out(this);
+		});
+	}
+	var implant_slots = document.getElementById('implants_table').getElementsByTagName('td');
+	for (var i = 0; i < implant_slots.length; i++) {
+		implant_slots[i].addEventListener('click', function() {
+			//implant_mouse_click(this);
+		});
+		implant_slots[i].addEventListener('contextmenu', function(event) {
+			implant_mouse_right_click(this.id);
+			event.preventDefault();
+		});
+		implant_slots[i].addEventListener('mouseover', function() {
+			//implant_mouse_over(this);
+		});
+		implant_slots[i].addEventListener('mouseout', function() {
+			//implant_mouse_out(this);
+		});
 	}
 }

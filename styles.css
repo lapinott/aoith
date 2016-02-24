@@ -96,6 +96,25 @@ div.list_item {
 	padding:4px;
 	cursor:pointer;
 	overflow:hidden;
+	position:relative;
+}
+
+div.list_item > div.item_overlay {
+	position:absolute;
+	top:1px;
+	left:1px;
+	width:90px;
+	height:90px;
+	overflow:hidden;
+	z-index:100;
+	background:rgba(0,0,0,0.7);
+	padding:4px;
+	color:white;
+	font-size:0.7em;
+}
+
+div.list_item > div.item_overlay > span {
+	display:block;
 }
 
 div.list_item:hover {

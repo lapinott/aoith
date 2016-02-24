@@ -2,11 +2,12 @@
 <html>
 	<head>
 		<title>AO Implant Twink Helper</title>
+		<link rel="shortcut icon" href="img/ao.png" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="styles.css"/>
 		<script type="text/javascript" src="js/scripts.js"></script>
 		<script type="text/javascript" src="js/window.js"></script>
 		<script type="text/javascript" src="js/item.js"></script>
-		<script type="text/javascript" src="js/drag.js"></script>
+		<script type="text/javascript" src="js/events.js"></script>
 		<script type="text/javascript" src="js/slots.js"></script>
 	</head>
 	<body>
@@ -89,7 +90,7 @@
 				<table id="weapons_table" class="equip_table">
 					<tbody>
 						<tr>
-							<td id="w_hud_1" oncontextmenu="return weapon_mouse_right_click(this.id);" onclick="weapon_mouse_click(this.id);" onmouseover="weapon_mouse_over(this.id);" onmouseout="weapon_mouse_out(this.id);">Hud-1</td>
+							<td id="w_hud_1">Hud-1</td>
 							<td id="w_hud_2">Hud-2</td>
 							<td id="w_hud_3">Hud-3</td>
 						</tr>
@@ -202,6 +203,7 @@
 						$data['sen'] = $values[7];
 						$data['int'] = $values[8];
 						$data['psy'] = $values[9];
+						$data['treat'] = $values[10];
 						$items[] = $data;
 						++$i;
 					}
@@ -209,9 +211,11 @@
 				
 				// Print items
 				foreach ($items as $item) {
-					echo "<div class=\"list_item\" oncontextmenu=\"return item_list_mouse_right_click('".$item['id']."');\" onclick=\"item_list_mouse_click('".$item['id']."');\" onmouseover=\"item_list_mouse_over('".$item['id']."');\" onmouseout=\"item_list_mouse_out('".$item['id']."');\"><div class=\"list_item_img\"><img src=\"items/img/".$item['img']."\" alt=\"".$item['name']."\"/></div><div class=\"list_item_name\">".$item['name']."</div></div>";
+					echo "\r\n\t\t\t\t\t<div id=\"".$item['id']."\" class=\"list_item\" oncontextmenu=\"return item_list_mouse_right_click('".$item['id']."');\" onclick=\"item_list_mouse_click('".$item['id']."');\" onmouseover=\"item_list_mouse_over('".$item['id']."');\" onmouseout=\"item_list_mouse_out('".$item['id']."');\">\r\n\t\t\t\t\t\t<div class=\"list_item_img\">\r\n\t\t\t\t\t\t\t<img src=\"items/img/".$item['img']."\" alt=\"".$item['name']."\"/></div>\r\n\t\t\t\t\t\t\t<div class=\"list_item_name\">".$item['name']."\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>";
 				}
-			?></div>
+				echo "\r\n";
+?>
+				</div>
 			</fieldset>
 			<fieldset id="ability_implants_container">
 				<legend>Implants</legend>
@@ -234,9 +238,10 @@
 					$jsSlots = "[";
 					foreach ($item['slots'] as $slot) $jsSlots .= ($slot.",");
 					$jsSlots[strlen($jsSlots) - 1] = "]";
-					echo "\t\t\tg_Items[\"".$item['id']."\"] = new Item('".$item['id']."', '".$item['type']."', $jsSlots, '".addslashes($item['name'])."', '".$item['img']."', ".$item['str'].", ".$item['sta'].", ".$item['agi'].", ".$item['sen'].", ".$item['int'].", ".$item['psy'].");" . PHP_EOL;
+					echo "\t\t\t\tg_Items[\"".$item['id']."\"] = new Item(document.getElementById('".$item['id']."'), '".$item['id']."', '".$item['type']."', $jsSlots, '".addslashes($item['name'])."', '".$item['img']."', ".$item['str'].", ".$item['sta'].", ".$item['agi'].", ".$item['sen'].", ".$item['int'].", ".$item['psy'].", ".$item['treat'].");" . PHP_EOL;
 				}
 ?>				createSlots();
+				addEventListeners();
 			</script>
 		</div>
 	</body>

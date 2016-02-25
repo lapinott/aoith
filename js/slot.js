@@ -6,6 +6,8 @@ Slot = function (el) {
 	this.hovered = false;
 	this.background_empty = el.style.background;
 	this.text_bkp = el.innerHTML;
+	this.overlay = null;
+	this.has_overlay = false;
 	
 	this.equip_equippable = function (equippable) {
 		switch (equippable.type) {
@@ -20,6 +22,13 @@ Slot = function (el) {
 				this.html.innerHTML = "";
 			break;
 			case 'i' :
+				// Empty slot if not empty
+				if (this.has_equippable) g_Stats.remove_i_from_twink(g_Equippables[this.has_equippable_id]);
+				this.has_equippable = true;
+				this.has_equippable_id = equippable.id;
+				equippable.equipped_count++;
+				this.html.style.background = 'url(items/img/' + equippable.img + ') no-repeat center center, rgba(55, 255, 55, 0.85)';
+				
 				// Calculate best possible ql and relative stats
 				var best_req_abi;
 				var best_req_amount_abi = 0;
@@ -36,6 +45,8 @@ Slot = function (el) {
 				
 				// Take smaller of two
 				var ql_best = ql_abi > ql_treat ? ql_treat : ql_abi;
+				var req_abi = Math.round(2 * ql_best + 4);
+				var req_treat = Math.round(940/199 * ql_best + 1249/199);
 				
 				// Compute buffing values
 				if (equippable.buff == "str" || equippable.buff == "sta" || equippable.buff == "agi" || equippable.buff == "sen" || equippable.buff == "int" || equippable.buff == "psy") {
@@ -48,17 +59,27 @@ Slot = function (el) {
 					if (equippable.potency == "b") equippable.buff_amount = Math.round(60/199 * ql_best + 537/199);
 					if (equippable.potency == "f") equippable.buff_amount = Math.round(40/199 * ql_best + 358/199);
 				}
-				alert("QL : " + ql_best + ", buff amount : +" + equippable.buff_amount + " " + equippable.buff);
 				
-				// DISPLAY :  QL X, +Y ABI, Z-BASED
-				
-				if (this.has_equippable) g_Stats.remove_i_from_twink(g_Equippables[this.has_equippable_id]);
-				g_Stats.add_i_to_twink(equippable);
-				this.has_equippable = true;
-				this.has_equippable_id = equippable.id;
-				equippable.equipped_count++;
-				this.html.style.background = 'url(items/img/' + equippable.img + ') no-repeat center center, rgba(55, 255, 55, 0.85)';
+				// Display implant info
 				this.html.innerHTML = "";
+				this.overlay = document.createElement('div');
+				this.overlay.className = 'slot_overlay';
+				var span1 = document.createElement('span');
+				span1.innerHTML = "QL " + ql_best;
+				this.overlay.appendChild(span1);
+				var span2 = document.createElement('span');
+				span2.innerHTML = "+" + equippable.buff_amount + " " + equippable.buff;
+				this.overlay.appendChild(span2);
+				var span3 = document.createElement('span');
+				span3.innerHTML = best_req_abi + "-based";
+				this.overlay.appendChild(span3);
+				var span4 = document.createElement('span');
+				span4.innerHTML = "Reqs: " + req_abi + "/" + req_treat;
+				this.overlay.appendChild(span4);
+				this.html.appendChild(this.overlay);
+				
+				// Add implant to twink stats
+				g_Stats.add_i_to_twink(equippable);
 			break;
 			default : break;
 		}

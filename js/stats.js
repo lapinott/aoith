@@ -91,24 +91,30 @@ Stats = function () {
 	}
 	
 	this.add_i_to_twink = function (equippable) {
-		if (equippable.str > 0) this.twinked_str += equippable.str;
-		if (equippable.sta > 0) this.twinked_sta += equippable.sta;
-		if (equippable.agi > 0) this.twinked_agi += equippable.agi;
-		if (equippable.sen > 0) this.twinked_sen += equippable.sen;
-		if (equippable.intel > 0) this.twinked_int += equippable.intel;
-		if (equippable.psy > 0) this.twinked_psy += equippable.psy;
-		if (equippable.treat > 0) this.twinked_treat += equippable.treat;
+		switch (equippable.buff) {
+			case 'str' : this.twinked_str += equippable.buff_amount; break;
+			case 'sta' : this.twinked_sta += equippable.buff_amount; break;
+			case 'agi' : this.twinked_agi += equippable.buff_amount; break;
+			case 'sen' : this.twinked_sen += equippable.buff_amount; break;
+			case 'int' : this.twinked_int += equippable.buff_amount; break;
+			case 'psy' : this.twinked_psy += equippable.buff_amount; break;
+			case 'treat' : this.twinked_treat += equippable.buff_amount; break;
+			default : break;
+		}
 		this.refresh_stats_twinked_values();
 	}
 	
 	this.remove_i_from_twink = function (equippable) {
-		if (equippable.str > 0) this.twinked_str -= equippable.str;
-		if (equippable.sta > 0) this.twinked_sta -= equippable.sta;
-		if (equippable.agi > 0) this.twinked_agi -= equippable.agi;
-		if (equippable.sen > 0) this.twinked_sen -= equippable.sen;
-		if (equippable.intel > 0) this.twinked_int -= equippable.intel;
-		if (equippable.psy > 0) this.twinked_psy -= equippable.psy;
-		if (equippable.treat > 0) this.twinked_treat -= equippable.treat;
+		switch (equippable.buff) {
+			case 'str' : this.twinked_str -= equippable.buff_amount; break;
+			case 'sta' : this.twinked_sta -= equippable.buff_amount; break;
+			case 'agi' : this.twinked_agi -= equippable.buff_amount; break;
+			case 'sen' : this.twinked_sen -= equippable.buff_amount; break;
+			case 'int' : this.twinked_int -= equippable.buff_amount; break;
+			case 'psy' : this.twinked_psy -= equippable.buff_amount; break;
+			case 'treat' : this.twinked_treat -= equippable.buff_amount; break;
+			default : break;
+		}
 		this.refresh_stats_twinked_values();
 	}
 }

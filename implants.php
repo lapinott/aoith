@@ -185,6 +185,9 @@
 					</tbody>
 				</table>
 			</div>
+			<div id="recorder_container">
+				<p>&nbsp;[x] Blabla recorder</p>
+			</div>
 			<div class="cb"></div>
 			<fieldset id="items_container">
 				<legend>Items</legend>

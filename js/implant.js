@@ -15,6 +15,8 @@ Implant = function(_html, _id, _type, _slots, _potency, _name, _img, _buff, _req
 	this.overlay = null;
 	this.has_overlay = false;
 	this.quality_level = 0;
+	this.slotted_with_ql = 0;
+	this.slotted_with_req = "";
 	for (var i = 0; i < _reqs.length; i++) this.reqs.push(_reqs[i]);
 	this.text_node = document.createElement('span');
 	

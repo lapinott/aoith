@@ -26,6 +26,6 @@ i,0,b,Eye Implant: Intelligence Bright,12712.gif,int,agi|sen|int|psy
 i,2,f,Ear Implant: Intelligence Faded,12685.gif,int,agi|sen|int|psy
 
 # Psychic buffing implants
-i,1,s,Head Implant: Intelligence Shining,195261.gif,psy,agi|sen|int|psy
-i,4,b,Chest Implant: Intelligence Bright,12691.gif,psy,str|sta|int|psy
-i,2,f,Ear Implant: Intelligence Faded,12685.gif,psy,agi|sen|int
+i,1,s,Head Implant: Psychic Shining,195261.gif,psy,agi|sen|int|psy
+i,4,b,Chest Implant: Psychic Bright,12691.gif,psy,str|sta|int|psy
+i,2,f,Ear Implant: Psychic Faded,12685.gif,psy,agi|sen|int

@@ -31,9 +31,7 @@ Stats = function () {
 	this.twinked_psy = 0;
 	this.twinked_treat = 0;
 	
-	// ++ calculate treatment trickle from twink values
-	// display relative QLs next to stats
-	// Chatbox : log actions, insert comment field, delete last entry
+	this.trickle_treat_init = 0.25 * (0.5 * this.base_int + 0.3 * this.base_agi + 0.2 * this.base_sen);
 	
 	this.get_stat = function (stat) {
 		switch (stat) {
@@ -43,19 +41,38 @@ Stats = function () {
 			case 'sen' : return this.base_sen + this.twinked_sen;
 			case 'int' : return this.base_int + this.twinked_int;
 			case 'psy' : return this.base_psy + this.twinked_psy;
-			case 'treat' : return this.base_treat + this.twinked_treat;
+			case 'treat' : return Math.round(this.base_treat + this.twinked_treat - this.trickle_treat_init + this.get_treatment_trickle());
 			default : return 0;
 		}
 	}
 	
+	this.get_treatment_trickle = function () {
+		return 0.25 * (0.5 * this.get_stat('int') + 0.3 * this.get_stat('agi') + 0.2 * this.get_stat('sen'));
+	}
+	
 	this.refresh_stats_twinked_values = function () {
-		this.html_twinked_str.innerHTML = this.base_str + this.twinked_str;
-		this.html_twinked_sta.innerHTML = this.base_sta + this.twinked_sta;
-		this.html_twinked_agi.innerHTML = this.base_agi + this.twinked_agi;
-		this.html_twinked_sen.innerHTML = this.base_sen + this.twinked_sen;
-		this.html_twinked_int.innerHTML = this.base_int + this.twinked_int;
-		this.html_twinked_psy.innerHTML = this.base_psy + this.twinked_psy;
-		this.html_twinked_treat.innerHTML = this.base_treat + this.twinked_treat;
+		var str = this.base_str + this.twinked_str;
+		var sta = this.base_sta + this.twinked_sta;
+		var agi = this.base_agi + this.twinked_agi;
+		var sen = this.base_sen + this.twinked_sen;
+		var intel = this.base_int + this.twinked_int;
+		var psy = this.base_psy + this.twinked_psy;
+		var treat = Math.round(this.base_treat + this.twinked_treat - this.trickle_treat_init + this.get_treatment_trickle());
+		var ql_str = Math.floor((str - 4) / 2);
+		var ql_sta = Math.floor((sta - 4) / 2);
+		var ql_agi = Math.floor((agi - 4) / 2);
+		var ql_sen = Math.floor((sen - 4) / 2);
+		var ql_int = Math.floor((intel - 4) / 2);
+		var ql_psy = Math.floor((psy - 4) / 2);
+		var ql_treat = Math.floor((treat - 1249/199) / (940/199));
+		
+		this.html_twinked_str.innerHTML = str + " <span class=\"stat_rel_ql\" title=\"Relative best QL\">[ql" + ql_str + "]</span>";
+		this.html_twinked_sta.innerHTML = sta + " <span class=\"stat_rel_ql\" title=\"Relative best QL\">[ql" + ql_sta + "]</span>";
+		this.html_twinked_agi.innerHTML = agi + " <span class=\"stat_rel_ql\" title=\"Relative best QL\">[ql" + ql_agi + "]</span>";
+		this.html_twinked_sen.innerHTML = sen + " <span class=\"stat_rel_ql\" title=\"Relative best QL\">[ql" + ql_sen + "]</span>";
+		this.html_twinked_int.innerHTML = intel + " <span class=\"stat_rel_ql\" title=\"Relative best QL\">[ql" + ql_int + "]</span>";
+		this.html_twinked_psy.innerHTML = psy + " <span class=\"stat_rel_ql\" title=\"Relative best QL\">[ql" + ql_psy + "]</span>";
+		this.html_twinked_treat.innerHTML = treat + " <span class=\"stat_rel_ql\" title=\"Relative best QL\">[ql" + ql_treat + "]</span> <span class=\"stat_treat_trickle\" title=\"Trickle\">[&uarr;" + Math.round(this.get_treatment_trickle()) + "]</span>";
 	}
 	
 	this.change_base_stats_cell = function (el) {

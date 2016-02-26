@@ -13,6 +13,11 @@ Slot = function (el) {
 		switch (equippable.type) {
 			case 'w' :
 			case 'a' :
+			
+				// Bkp
+				var old_item = this.has_equippable ? g_Equippables[this.has_equippable_id] : null;
+				var new_item = g_Equippables[equippable.id];
+				
 				if (this.has_equippable) g_Stats.remove_wa_from_twink(g_Equippables[this.has_equippable_id]);
 				g_Stats.add_wa_to_twink(equippable);
 				this.has_equippable = true;
@@ -20,10 +25,25 @@ Slot = function (el) {
 				equippable.equipped_count++;
 				this.html.style.background = 'url(items/img/' + equippable.img + ') no-repeat center center, rgba(55, 255, 55, 0.85)';
 				this.html.innerHTML = "";
+				this.html.title = g_Equippables[this.has_equippable_id].name;
+				
+				// Log action
+				g_Logger.log_item(old_item, new_item);
 			break;
 			case 'i' :
+				
+				// Bkp
+				var old_imp = this.has_equippable ? g_Equippables[this.has_equippable_id] : null;
+				var new_imp = equippable;
+				
 				// Empty slot if not empty
-				if (this.has_equippable) g_Stats.remove_i_from_twink(g_Equippables[this.has_equippable_id]);
+				if (this.has_equippable) {
+					g_Stats.remove_i_from_twink(g_Equippables[this.has_equippable_id]);
+					//g_Equippables[this.has_equippable_id].slotted_with_ql = 0;
+					//g_Equippables[this.has_equippable_id].slotted_with_req = "";
+				}
+				
+				// Bla notify
 				this.has_equippable = true;
 				this.has_equippable_id = equippable.id;
 				equippable.equipped_count++;
@@ -60,8 +80,13 @@ Slot = function (el) {
 					if (equippable.potency == "f") equippable.buff_amount = Math.round(40/199 * ql_best + 358/199);
 				}
 				
+				// Save some values
+				equippable.slotted_with_ql = ql_best;
+				equippable.slotted_with_req = best_req_abi;
+				
 				// Display implant info
 				this.html.innerHTML = "";
+				this.html.title = equippable.name
 				this.overlay = document.createElement('div');
 				this.overlay.className = 'slot_overlay';
 				var span1 = document.createElement('span');
@@ -80,6 +105,9 @@ Slot = function (el) {
 				
 				// Add implant to twink stats
 				g_Stats.add_i_to_twink(equippable);
+				
+				// Log action
+				g_Logger.log_implant(old_imp, new_imp);
 			break;
 			default : break;
 		}
@@ -99,14 +127,17 @@ Slot = function (el) {
 				case 'w' :
 				case 'a' :
 					g_Stats.remove_wa_from_twink(g_Equippables[this.has_equippable_id]);
+					g_Logger.log_item(g_Equippables[this.has_equippable_id], null);
 				break;
 				case 'i' :
 					g_Stats.remove_i_from_twink(g_Equippables[this.has_equippable_id]);
+					g_Logger.log_item(g_Equippables[this.has_equippable_id], null);
 				break;
 				default : break;
 			}
 			this.html.style.background = this.background_empty;
 			this.html.innerHTML = this.text_bkp;
+			this.html.title = "";
 			this.has_equippable = false;
 			this.has_equippable_id = "";
 		}

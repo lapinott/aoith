@@ -15,6 +15,7 @@
 		<script type="text/javascript" src="js/slot.js"></script>
 		<script type="text/javascript" src="js/stats.js"></script>
 		<script type="text/javascript" src="js/events.js"></script>
+		<script type="text/javascript" src="js/logger.js"></script>
 	</head>
 	<body>
 		<div id="main_frame">
@@ -185,8 +186,14 @@
 					</tbody>
 				</table>
 			</div>
-			<div id="recorder_container">
-				<p>&nbsp;[x] Blabla recorder</p>
+			<div id="logger_container" class="logger_container">
+				<div id="log"></div>
+				<div id="logger_control_bar">
+					<div>
+						<input id="custom_msg" type="text" placeholder="Custom message" onkeydown="g_Logger.custom_msg_keydown(event);"/>
+						<input id="remove_last_entry" type="button" value="Remove last entry" onclick="g_Logger.delete_last_entry();"/>
+					</div>
+				</div>
 			</div>
 			<div class="cb"></div>
 			<fieldset id="items_container">
@@ -337,8 +344,10 @@
 					}
 				}
 ?>				g_Stats = new Stats();
+				g_Logger = new Logger();
 				createSlots();
 				addEventListeners();
+				g_Stats.refresh_stats_twinked_values();
 			</script>
 		</div>
 	</body>

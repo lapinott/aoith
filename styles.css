@@ -14,7 +14,7 @@ html, body {
 .nce {
 	border:1px solid #ccc;
 	min-width:75px;
-	max-width:75px;
+	max-width:85px;
 	background:#ddd;
 	*font-weight:bold;
 }
@@ -39,6 +39,62 @@ div.equip_table_container {
 	float:left;
 	border:2px solid #ccc;
 	margin-right:1px;
+}
+
+div.logger_container {
+	float:left;
+	border:1px solid #ccc;
+	margin-right:1px;
+	width:250px;
+	height:350px;
+	position:relative;
+}
+
+div#logger_control_bar {
+	position:absolute;
+	bottom:0;
+	left:0;
+	width:248px;
+	background:#777;
+	border:1px solid #ccc;
+}
+
+div#logger_control_bar input {
+	margin:0;
+	padding:2px 0;
+	display:block;
+	border:1px solid #777;
+	padding:2px;
+}
+
+input#custom_msg {
+	width:242px;
+}
+
+input#remove_last_entry {
+	width:248px;
+}
+
+input#remove_last_entry:active {
+	background:#f93;
+	color:white;
+}
+
+div#logger_container > div#log {
+	background:red;
+	width:240px;
+	padding:5px;
+	background:#111;
+	color:white;
+	height:290px;
+	overflow-y:scroll;
+}
+
+div#logger_container > div#log > p {
+	font-size:0.7em;
+	margin:1px 0 0;
+	border-bottom:1px dashed #444;
+	padding-bottom:1px;
 }
 
 table#weapons_table {
@@ -83,6 +139,16 @@ table.stats_table > thead {
 	background:gray;
 	color:white;
 	text-align:center;
+}
+
+table.stats_table span.stat_rel_ql {
+	font-size:0.6em;
+	color:gray;
+}
+
+table.stats_table span.stat_treat_trickle {
+	font-size:0.6em;
+	color:green;
 }
 
 table.stats_table > thead td {

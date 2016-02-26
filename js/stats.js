@@ -31,6 +31,10 @@ Stats = function () {
 	this.twinked_psy = 0;
 	this.twinked_treat = 0;
 	
+	// ++ calculate treatment trickle from twink values
+	// display relative QLs next to stats
+	// Chatbox : log actions, insert comment field, delete last entry
+	
 	this.get_stat = function (stat) {
 		switch (stat) {
 			case 'str' : return this.base_str + this.twinked_str;

@@ -33,7 +33,9 @@ Slot = function (el) {
 			case 'i' :
 				
 				// Bkp
-				var old_imp = this.has_equippable ? g_Equippables[this.has_equippable_id] : null;
+				var old_imp = this.has_equippable ? g_Equippables[this.has_equippable_id] : null; // -> old and new imp are same object...
+				var old_ql = this.has_equippable ? g_Equippables[this.has_equippable_id].slotted_with_ql : null;
+				// var old_req...........
 				var new_imp = equippable;
 				
 				// Empty slot if not empty
@@ -107,7 +109,7 @@ Slot = function (el) {
 				g_Stats.add_i_to_twink(equippable);
 				
 				// Log action
-				g_Logger.log_implant(old_imp, new_imp);
+				g_Logger.log_implant(old_imp, new_imp, old_ql);
 			break;
 			default : break;
 		}

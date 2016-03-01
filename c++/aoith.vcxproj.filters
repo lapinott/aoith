@@ -18,12 +18,6 @@
     <ClCompile Include="Equippable.struct.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Slot.struct.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SmartImplant.class.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Stats.struct.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -33,21 +27,33 @@
     <ClCompile Include="Includes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SmartImplant.struct.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Setup.struct.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Globals.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Equippable.struct.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Slot.struct.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SmartImplant.class.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Stats.struct.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Includes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SmartImplant.struct.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Setup.struct.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Equippable.struct.cpp" />
+    <ClCompile Include="Globals.cpp" />
     <ClCompile Include="Includes.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Includes.h</PrecompiledHeaderFile>
@@ -27,15 +28,16 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Includes.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Slot.struct.cpp" />
-    <ClCompile Include="SmartImplant.class.cpp" />
+    <ClCompile Include="Setup.struct.cpp" />
+    <ClCompile Include="SmartImplant.struct.cpp" />
     <ClCompile Include="Stats.struct.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Equippable.struct.h" />
+    <ClInclude Include="Globals.h" />
     <ClInclude Include="Includes.h" />
-    <ClInclude Include="Slot.struct.h" />
-    <ClInclude Include="SmartImplant.class.h" />
+    <ClInclude Include="Setup.struct.h" />
+    <ClInclude Include="SmartImplant.struct.h" />
     <ClInclude Include="Stats.struct.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

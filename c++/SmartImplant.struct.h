@@ -8,13 +8,14 @@ struct SmartImplant {
 	SLOTS slot;
 
 	// Buff
-	std::vector<STAT> buffed_stat;
+	std::vector<std::pair<POTENCY, STAT>> buffed_stat;
 
 	// Req
 	std::vector<STAT> requires_ability;
 
-	// Quality level
+	// Slotted values
 	unsigned int current_ql;
+	STAT current_abi_req;
 
-	SmartImplant(std::string name, SLOTS slot, std::vector<STAT> buffed_stat, std::vector<STAT> requires_ability);
+	SmartImplant(std::string name, SLOTS slot, std::vector<std::pair<POTENCY, STAT>> buffed_stat, std::vector<STAT> requires_ability);
 };

@@ -8,7 +8,7 @@ struct Stats {
 	unsigned int base_sen;
 	unsigned int base_int;
 	unsigned int base_psy;
-	float base_treat; // subscract trickle on init
+	unsigned int base_treat; // subscract trickle on init
 
 	unsigned int str_buff;
 	unsigned int sta_buff;
@@ -27,16 +27,22 @@ struct Stats {
 		unsigned int base_sen,
 		unsigned int base_int,
 		unsigned int base_psy,
-		float base_treat
+		unsigned int base_treat
 	);
+
+	unsigned int getMax(STAT s);
+
+	STAT getHighestAbility(std::vector<STAT> stats);
+
+	unsigned int getHighestAbilityValue(std::vector<STAT> stats);
+
 
 	void addToStatEquippable(Equippable* e);
 
 	void removeFromStatEquippable(Equippable* e);
 
-	void addToStatImplant(SmartImplant* i); // pass this
+
+	void addToStatImplant(SmartImplant* i);
 
 	void removeFromStatImplant(SmartImplant* i);
-
-	void updateStats(Setup* setup);
 };

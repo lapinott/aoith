@@ -18,7 +18,7 @@ struct Setup {
 	void removeEquippable(Stats* stat, Equippable* e);
 
 
-	void equipImplant(Stats* stat, SLOTS s, SmartImplant* i);
+	void equipImplant(Stats* stat, SmartImplant* i);
 
 	void removeImplant(Stats* stat, SLOTS s);
 

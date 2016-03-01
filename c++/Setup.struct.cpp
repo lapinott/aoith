@@ -84,16 +84,37 @@ void Setup::removeEquippable(Stats* stat, Equippable* e) {
 }
 
 // Add std::cout
-void Setup::equipImplant(Stats* stat, SLOTS s, SmartImplant* i) {
-	// compute best ql
+void Setup::equipImplant(Stats* stat, SmartImplant* i) {
+	
+	// Get best QL
+	unsigned int highest_ability_value = stat->getHighestAbilityValue(i->requires_ability);
+	unsigned int ql_abi = (int)std::floor((highest_ability_value - 4) / 2);
+	unsigned int ql_treat = (int)std::floor((stat->getMax(TREAT) - 1249 / 199) / (940 / 199));
+	unsigned int ql_best = std::min(ql_abi, ql_treat);
+
+	// Send unequip if slot not empty
+	if (this->i_slots[i->slot] != nullptr) stat->removeFromStatImplant(i);
+
+	// up
+	i->current_ql = ql_best;
+	i->current_abi_req = stat->getHighestAbility(i->requires_ability);
+
+	// add to stat
+	stat->addToStatImplant(i);
 }
 
 // Add std::cout
 void Setup::removeImplant(Stats* stat, SLOTS s) {
-	// ...
+	if (this->i_slots[s] != nullptr) {
+		stat->removeFromStatImplant(this->i_slots[s]);
+		this->i_slots[s] = nullptr;
+	}
 }
 
 // Add std::cout
 void Setup::removeImplant(Stats* stat, SmartImplant* i) {
-	// ...
+	if (this->i_slots[i->slot] == i) {
+		stat->removeFromStatImplant(this->i_slots[i->slot]);
+		this->i_slots[i->slot] = nullptr;
+	}
 }

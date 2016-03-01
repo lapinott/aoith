@@ -15,7 +15,18 @@ enum STAT {
 	NUM_ABILITY
 };
 
+enum POTENCY {
+	FADED,
+	BRIGHT,
+	SHINING,
+	NUM_POTENCY
+};
+
 std::string get_ability_string(STAT a);
+
+unsigned int get_ability_buff_amount_from_ql(POTENCY p, unsigned int ql);
+
+unsigned int get_treatment_buff_amount_from_ql(POTENCY p, unsigned int ql);
 
 enum SLOTS {
 
@@ -37,10 +48,10 @@ enum SLOTS {
 };
 
 // Implants mapped by ID
-extern std::map<std::string, SmartImplant*>* g_implants;
+extern std::vector<SmartImplant*>* g_implants;
 
 // Equippables mapped by ID
-extern std::map<std::string, Equippable*>* g_equippables;
+extern std::vector<Equippable*>* g_equippables;
 
 // Setup
 extern Setup* g_setup;

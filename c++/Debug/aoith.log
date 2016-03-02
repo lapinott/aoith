@@ -1,9 +1,1 @@
-﻿  Includes.cpp
-  Stats.struct.cpp
-  SmartImplant.struct.cpp
-  Setup.struct.cpp
-  main.cpp
-  Globals.cpp
-  Equippable.struct.cpp
-  Generating Code...
-  aoith.vcxproj -> C:\wamp\www\aoith\c++\Debug\aoith.exe
+﻿  aoith.vcxproj -> C:\wamp\www\AO\c++\Debug\aoith.exe

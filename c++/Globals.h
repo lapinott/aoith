@@ -3,6 +3,7 @@
 struct SmartImplant;
 struct Equippable;
 struct Setup;
+struct Stats;
 
 enum STAT {
 	STR,
@@ -55,6 +56,9 @@ extern std::vector<Equippable*>* g_equippables;
 
 // Setup
 extern Setup* g_setup;
+
+// Stat
+extern Stats* g_stats;
 
 // BASE function -> display base stats
 // LIST functions -> equippables + implants

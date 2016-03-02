@@ -30,11 +30,14 @@ struct Stats {
 		unsigned int base_treat
 	);
 
-	unsigned int getMax(STAT s);
+	unsigned int getMax(STAT s) const;
 
 	STAT getHighestAbility(std::vector<STAT> stats);
 
 	unsigned int getHighestAbilityValue(std::vector<STAT> stats);
+
+
+	float getTreatmentTrickle() const;
 
 
 	void addToStatEquippable(Equippable* e);
@@ -45,4 +48,7 @@ struct Stats {
 	void addToStatImplant(SmartImplant* i);
 
 	void removeFromStatImplant(SmartImplant* i);
+
+
+	void displayStat() const;
 };

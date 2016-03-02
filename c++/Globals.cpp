@@ -1,14 +1,19 @@
 #include "Includes.h"
 #include "Globals.h"
+#include "Setup.struct.h"
+#include "Stats.struct.h"
 
 // Implants mapped by ID
-std::vector<SmartImplant*>* g_implants{};
+std::vector<SmartImplant*>* g_implants = new std::vector<SmartImplant*>();
 
 // Equippables mapped by ID
-std::vector<Equippable*>* g_equippables{};
+std::vector<Equippable*>* g_equippables = new std::vector<Equippable*>();
 
 // Setup
-Setup* g_setup{};
+Setup* g_setup = new Setup();
+
+// Stat
+Stats* g_stats = new Stats(1, 2, 3, 4, 5, 6, 7);
 
 std::string get_ability_string(STAT a) {
 	switch (a) {

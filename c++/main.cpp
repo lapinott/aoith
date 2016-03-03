@@ -3,6 +3,7 @@
 #include "Equippable.struct.h"
 #include "SmartImplant.struct.h"
 #include "Stats.struct.h"
+#include "Setup.struct.h"
 
 int main() {
 
@@ -133,9 +134,15 @@ int main() {
 	requires_ability = std::vector<STAT>{ AGI, SEN, INT };
 	g_implants->push_back(new SmartImplant("Ear Implant: Psychic Faded", I_EAR, buffed_stat, requires_ability));
 
-	// stategies
-	// console UI loop commands
+	// Test
+	g_setup->equipEquippable(g_stats, (*g_equippables)[0]);
+	g_setup->equipEquippable(g_stats, (*g_equippables)[1]);
+	g_setup->removeEquippable(g_stats, (*g_equippables)[0]);
+	g_setup->equipEquippable(g_stats, (*g_equippables)[1]);
 	g_stats->displayStat();
+
+	// ++stategies
+	// ++console UI loop commands
 
 	system("PAUSE");
 }

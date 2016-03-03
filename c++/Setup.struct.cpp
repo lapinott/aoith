@@ -53,32 +53,40 @@ Setup::Setup() {
 	this->i_slots[I_FEET] = nullptr;
 }
 
-// Add std::cout
 void Setup::equipEquippable(Stats* stat, Equippable* e) {
 
 	// Return if already equipped
-	for (std::pair<SLOTS, Equippable*> se : this->e_slots) if (se.second == e) return;
+	for (std::pair<SLOTS, Equippable*> se : this->e_slots) {
+		if (se.second == e) {
+			std::cout << e->name << " (" << get_slot_string(e->slot) << ") is already equipped." << std::endl;
+			return;
+		}
+	}
 
 	// Remove item if slot not empty
-	if (this->e_slots[e->slot] != nullptr) stat->removeFromStatEquippable(e);
+	if (this->e_slots[e->slot] != nullptr) {
+		stat->removeFromStatEquippable(e);
+		std::cout << e->name << " (" << get_slot_string(e->slot) << ") removed." << std::endl;
+	}
 
 	// Equip
 	this->e_slots[e->slot] = e;
 	stat->addToStatEquippable(e);
+	std::cout << e->name << " (" << get_slot_string(e->slot) << ") equipped." << std::endl;
 }
 
-// Add std::cout
 void Setup::removeEquippable(Stats* stat, SLOTS s) {
 	if (this->e_slots[s] != nullptr) {
 		stat->removeFromStatEquippable(this->e_slots[s]);
+		std::cout << this->e_slots[s]->name << " (" << get_slot_string(s) << ") removed." << std::endl;
 		this->e_slots[s] = nullptr;
 	}
 }
 
-// Add std::cout
 void Setup::removeEquippable(Stats* stat, Equippable* e) {
 	if (this->e_slots[e->slot] == e) {
 		stat->removeFromStatEquippable(this->e_slots[e->slot]);
+		std::cout << e->name << " (" << get_slot_string(e->slot) << ") removed." << std::endl;
 		this->e_slots[e->slot] = nullptr;
 	}
 }
@@ -93,7 +101,11 @@ void Setup::equipImplant(Stats* stat, SmartImplant* i) {
 	unsigned int ql_best = std::min(ql_abi, ql_treat);
 
 	// Send unequip if slot not empty
-	if (this->i_slots[i->slot] != nullptr) stat->removeFromStatImplant(i);
+	if (this->i_slots[i->slot] != nullptr) {
+		unsigned int buff_amount = 0;
+		std::cout << i->name << " (" << get_slot_string(i->slot) << " - QL" << i->current_ql << ") removed." << std::endl;
+		stat->removeFromStatImplant(i);
+	}
 
 	// up
 	i->current_ql = ql_best;

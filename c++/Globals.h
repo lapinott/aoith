@@ -23,7 +23,9 @@ enum POTENCY {
 	NUM_POTENCY
 };
 
-std::string get_ability_string(STAT a);
+std::string get_ability_string(STAT s);
+
+std::string get_potency_string(POTENCY p);
 
 unsigned int get_ability_buff_amount_from_ql(POTENCY p, unsigned int ql);
 
@@ -47,6 +49,8 @@ enum SLOTS {
 	I_LEGS, I_LHAND, I_FEET,
 	NUM_SLOTS
 };
+
+std::string get_slot_string(SLOTS s);
 
 // Implants mapped by ID
 extern std::vector<SmartImplant*>* g_implants;

@@ -20,6 +20,14 @@ Stats::Stats(unsigned int base_str, unsigned int base_sta, unsigned int base_agi
 	this->int_buff = 0;
 	this->psy_buff = 0;
 	this->treat_buff = 0;
+	this->str_buff = 0;
+	this->sta_buff = 0;
+	this->agi_buff = 0;
+	this->sen_buff = 0;
+	this->int_buff = 0;
+	this->psy_buff = 0;
+	this->treat_buff = 0;
+	this->treat_trickle = 0;
 }
 
 unsigned int Stats::getMax(STAT s) const {
@@ -183,5 +191,11 @@ void Stats::displayStat() const {
 	for (unsigned int i = 0; i < 4 - from; i++) s = std::string(" ") + s;
 	to = s.length();
 	for (unsigned int i = 0; i < 9 - to; i++) s += " ";
-	std::cout << "|" << s << "|";
+	std::cout << "|" << s;
+	s = std::to_string(this->getMax(TREAT));
+	from = s.length() / 2;
+	for (unsigned int i = 0; i < 5 - from; i++) s = std::string(" ") + s;
+	to = s.length();
+	for (unsigned int i = 0; i < 11 - to; i++) s += " ";
+	std::cout << "|" << s << "|" << std::endl;
 }

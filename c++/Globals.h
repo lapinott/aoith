@@ -23,7 +23,7 @@ enum POTENCY {
 	NUM_POTENCY
 };
 
-std::string get_ability_string(STAT s);
+std::string get_stat_string(STAT s);
 
 std::string get_potency_string(POTENCY p);
 
@@ -50,7 +50,13 @@ enum SLOTS {
 	NUM_SLOTS
 };
 
+bool is_weapon(Equippable* e);
+
+bool is_armor(Equippable* e);
+
 std::string get_slot_string(SLOTS s);
+
+bool handleCommand(std::string cmd);
 
 // Implants mapped by ID
 extern std::vector<SmartImplant*>* g_implants;

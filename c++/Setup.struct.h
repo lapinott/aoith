@@ -23,4 +23,6 @@ struct Setup {
 	void removeImplant(Stats* stat, SLOTS s);
 
 	void removeImplant(Stats* stat, SmartImplant* i);
+
+	void displaySetup() const;
 };

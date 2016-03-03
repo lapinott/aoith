@@ -135,14 +135,35 @@ int main() {
 	g_implants->push_back(new SmartImplant("Ear Implant: Psychic Faded", I_EAR, buffed_stat, requires_ability));
 
 	// Test
+	/*
 	g_setup->equipEquippable(g_stats, (*g_equippables)[0]);
 	g_setup->equipEquippable(g_stats, (*g_equippables)[1]);
 	g_setup->removeEquippable(g_stats, (*g_equippables)[0]);
 	g_setup->equipEquippable(g_stats, (*g_equippables)[1]);
 	g_stats->displayStat();
+	//*/
 
 	// ++stategies
 	// ++console UI loop commands
 
-	system("PAUSE");
+	// Welcome
+	std::cout << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" << std::endl;
+	std::cout << "- -  AO IMPLANT TWINK HELPER -- type 'help' for a list of commands  - -" << std::endl;
+	std::cout << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" << std::endl << std::endl;
+
+	// Display help
+	handleCommand("help");
+
+	// Loop commands
+	std::string command = "";
+	while (std::cout << "> " && std::cin >> command) {
+
+		// Handle command
+		if (command == "exit") break;
+		handleCommand(command);
+	}
+
+	// Out
+	std::cout << "bye";
+	return 0;
 }

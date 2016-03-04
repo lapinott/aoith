@@ -30,6 +30,17 @@ struct Stats {
 		unsigned int base_treat
 	);
 
+	void initStats(
+		unsigned int base_str,
+		unsigned int base_sta,
+		unsigned int base_agi,
+		unsigned int base_sen,
+		unsigned int base_int,
+		unsigned int base_psy,
+		unsigned int base_treat
+	);
+
+
 	unsigned int getMax(STAT s) const;
 
 	STAT getHighestAbility(std::vector<STAT> stats);
@@ -50,5 +61,5 @@ struct Stats {
 	void removeFromStatImplant(SmartImplant* i);
 
 
-	void displayStat() const;
+	void displayStats() const;
 };

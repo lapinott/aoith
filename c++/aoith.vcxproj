@@ -31,6 +31,7 @@
     <ClCompile Include="Setup.struct.cpp" />
     <ClCompile Include="SmartImplant.struct.cpp" />
     <ClCompile Include="Stats.struct.cpp" />
+    <ClCompile Include="Strategies.struct.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Equippable.struct.h" />
@@ -39,6 +40,7 @@
     <ClInclude Include="Setup.struct.h" />
     <ClInclude Include="SmartImplant.struct.h" />
     <ClInclude Include="Stats.struct.h" />
+    <ClInclude Include="Strategies.struct.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{22BF416F-339F-4D6D-8E00-C48639DBD163}</ProjectGuid>

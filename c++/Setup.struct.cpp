@@ -58,27 +58,27 @@ void Setup::equipEquippable(Stats* stat, Equippable* e) {
 	// Return if already equipped
 	for (std::pair<SLOTS, Equippable*> se : this->e_slots) {
 		if (se.second == e) {
-			std::cout << "[" << get_slot_string(e->slot) << "] " << e->name << " is already equipped." << std::endl;
+			std::cout << "[x] [" << get_slot_string(e->slot) << "] " << e->name << " is already equipped." << std::endl;
 			return;
 		}
 	}
 
 	// Remove item if slot not empty
 	if (this->e_slots[e->slot] != nullptr) {
-		stat->removeFromStatEquippable(e);
-		std::cout << "[" << get_slot_string(e->slot) << "] " << e->name << " removed." << std::endl;
+		stat->removeFromStatEquippable(this->e_slots[e->slot]);
+		std::cout << "[-] [" << get_slot_string(e->slot) << "] " << this->e_slots[e->slot]->name << " removed." << std::endl;
 	}
 
 	// Equip
 	this->e_slots[e->slot] = e;
 	stat->addToStatEquippable(e);
-	std::cout << "[" << get_slot_string(e->slot) << "] " << e->name << " equipped." << std::endl;
+	std::cout << "[+] [" << get_slot_string(e->slot) << "] " << e->name << " equipped." << std::endl;
 }
 
 void Setup::removeEquippable(Stats* stat, SLOTS s) {
 	if (this->e_slots[s] != nullptr) {
 		stat->removeFromStatEquippable(this->e_slots[s]);
-		std::cout << "[" << get_slot_string(s) << "] " << this->e_slots[s]->name << " removed." << std::endl;
+		std::cout << "[-] [" << get_slot_string(s) << "] " << this->e_slots[s]->name << " removed." << std::endl;
 		this->e_slots[s] = nullptr;
 	}
 }
@@ -86,7 +86,7 @@ void Setup::removeEquippable(Stats* stat, SLOTS s) {
 void Setup::removeEquippable(Stats* stat, Equippable* e) {
 	if (this->e_slots[e->slot] == e) {
 		stat->removeFromStatEquippable(this->e_slots[e->slot]);
-		std::cout << "[" << get_slot_string(e->slot) << "] " << e->name << " removed." << std::endl;
+		std::cout << "[-] [" << get_slot_string(e->slot) << "] " << e->name << " removed." << std::endl;
 		this->e_slots[e->slot] = nullptr;
 	}
 }
@@ -94,50 +94,55 @@ void Setup::removeEquippable(Stats* stat, Equippable* e) {
 // Add std::cout
 void Setup::equipImplant(Stats* stat, SmartImplant* i) {
 	
-	// Get best QL
-	unsigned int highest_ability_value = stat->getHighestAbilityValue(i->requires_ability);
-	unsigned int ql_abi = (int)std::floor((highest_ability_value - 4) / 2);
-	unsigned int ql_treat = (int)std::floor((stat->getMax(TREAT) - 1249 / 199) / (940 / 199));
-	unsigned int ql_best = std::min(ql_abi, ql_treat);
-
-	// Send unequip if slot not empty
+	// Remove item if slot not empty
 	if (this->i_slots[i->slot] != nullptr) {
-		unsigned int buff_amount = 0;
-		std::cout << i->name << " (" << get_slot_string(i->slot) << " - QL" << i->current_ql << ") removed." << std::endl;
-		stat->removeFromStatImplant(i);
+		std::cout << "[-] [" << get_slot_string(i->slot) << "|QL" << this->i_slots[i->slot]->current_ql << "|" << get_stat_string(this->i_slots[i->slot]->current_abi_req) << "-BASED] " << this->i_slots[i->slot]->name << " removed." << std::endl;
+		stat->removeFromStatImplant(this->i_slots[i->slot]);
 	}
 
-	// up
+	// Get best QL
+	unsigned int highest_ability_value = stat->getHighestAbilityValue(i->requires_ability);
+	unsigned int ql_abi = (int)std::floor(((float)highest_ability_value - 4.0f) / 2.0f);
+	unsigned int ql_treat = (int)std::floor(((float)stat->getMax(TREAT) - 1249.0f / 199.0f) / (940.0f / 199.0f));
+	unsigned int ql_best = std::min(ql_abi, ql_treat);
+
+	// Upload values
 	i->current_ql = ql_best;
 	i->current_abi_req = stat->getHighestAbility(i->requires_ability);
 
-	// add to stat
+	// Equip
+	this->i_slots[i->slot] = i;
 	stat->addToStatImplant(i);
+	std::cout << "[+] [" << get_slot_string(i->slot) << "|QL" << i->current_ql << "|" << get_stat_string(i->current_abi_req) << "-BASED] " << i->name << " equipped." << std::endl;
 }
 
-// Add std::cout
 void Setup::removeImplant(Stats* stat, SLOTS s) {
 	if (this->i_slots[s] != nullptr) {
 		stat->removeFromStatImplant(this->i_slots[s]);
+		std::cout << "[-]  [" << get_slot_string(s) << "|QL" << this->i_slots[s]->current_ql << "|" << get_stat_string(this->i_slots[s]->current_abi_req) << "-BASED] " << this->i_slots[s]->name << " removed." << std::endl;
 		this->i_slots[s] = nullptr;
 	}
 }
 
-// Add std::cout
 void Setup::removeImplant(Stats* stat, SmartImplant* i) {
 	if (this->i_slots[i->slot] == i) {
 		stat->removeFromStatImplant(this->i_slots[i->slot]);
+		std::cout << "[-] [" << get_slot_string(i->slot) << "|QL" << i->current_ql << "|" << get_stat_string(i->current_abi_req) << "-BASED] " << i->name << " removed." << std::endl;
 		this->i_slots[i->slot] = nullptr;
 	}
 }
 
 void Setup::displaySetup() const {
+	for (std::pair<SLOTS, SmartImplant*> si : this->i_slots) {
+		if (si.second != nullptr) std::cout << "[" << get_slot_string(si.second->slot) << "|QL" << si.second->current_ql << "|" << get_stat_string(si.second->current_abi_req) << "-BASED] " << si.second->name << std::endl;
+		else std::cout << "[" << get_slot_string(si.first) << "] empty." << std::endl;
+	}
 	for (std::pair<SLOTS, Equippable*> se : this->e_slots) {
 		if (se.second != nullptr) std::cout << "[" << get_slot_string(se.first) << "] " << se.second->name << std::endl;
 		else std::cout << "[" << get_slot_string(se.first) << "] empty." << std::endl;
 	}
-	for (std::pair<SLOTS, SmartImplant*> si : this->i_slots) {
-		if (si.second != nullptr) std::cout << "[" << get_slot_string(si.first) << "] " << si.second->name << std::endl;
-		else std::cout << "[" << get_slot_string(si.first) << "] empty." << std::endl;
-	}
+}
+
+void Setup::adjust_to_best_ql(SmartImplant* i, std::vector<Equippable*>* equippables) {
+	// bla!
 }

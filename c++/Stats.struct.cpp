@@ -27,7 +27,27 @@ Stats::Stats(unsigned int base_str, unsigned int base_sta, unsigned int base_agi
 	this->int_buff = 0;
 	this->psy_buff = 0;
 	this->treat_buff = 0;
-	this->treat_trickle = 0;
+}
+
+void Stats::initStats(
+	unsigned int base_str,
+	unsigned int base_sta,
+	unsigned int base_agi,
+	unsigned int base_sen,
+	unsigned int base_int,
+	unsigned int base_psy,
+	unsigned int base_treat) {
+
+	this->base_str = base_str;
+	this->base_sta = base_sta;
+	this->base_agi = base_agi;
+	this->base_sen = base_sen;
+	this->base_int = base_int;
+	this->base_psy = base_psy;
+	this->base_treat = base_treat;
+
+	this->treat_trickle = 0.25f * (0.5f * this->base_int + 0.3f * this->base_agi + 0.2f * this->base_sen);
+	this->base_treat = (int)std::round((float)this->base_treat - this->treat_trickle);
 }
 
 unsigned int Stats::getMax(STAT s) const {
@@ -51,7 +71,7 @@ STAT Stats::getHighestAbility(std::vector<STAT> stats) {
 	unsigned int max_value = 0;
 	for (unsigned int i = 0; i < NUM_ABILITY; i++) {
 		for (unsigned int j = 0; j < stats.size(); j++) {
-			if (stats[j] == STAT(j)) max_value = std::max(max_value, this->getMax(stats[j]));
+			if (stats[j] == STAT(i)) max_value = std::max(max_value, this->getMax(stats[j]));
 		}
 	}
 	if (max_value == getMax(STR)) return STR;
@@ -66,9 +86,7 @@ STAT Stats::getHighestAbility(std::vector<STAT> stats) {
 unsigned int Stats::getHighestAbilityValue(std::vector<STAT> stats) {
 	unsigned int max_value = 0;
 	for (unsigned int i = 0; i < NUM_ABILITY; i++) {
-		for (unsigned int j = 0; j < stats.size(); j++) {
-			if (stats[j] == STAT(j)) max_value = std::max(max_value, this->getMax(stats[j]));
-		}
+		for (STAT s : stats) if (s == STAT(i)) max_value = std::max(max_value, this->getMax(s));
 	}
 	return max_value;
 }
@@ -95,9 +113,18 @@ void Stats::addToStatEquippable(Equippable* e) {
 void Stats::removeFromStatEquippable(Equippable* e) {
 	if (e->buff_str > 0) this->str_buff -= e->buff_str;
 	if (e->buff_sta > 0) this->sta_buff -= e->buff_sta;
-	if (e->buff_agi > 0) this->agi_buff -= e->buff_agi;
-	if (e->buff_sen > 0) this->sen_buff -= e->buff_sen;
-	if (e->buff_int > 0) this->int_buff -= e->buff_int;
+	if (e->buff_agi > 0) {
+		this->agi_buff -= e->buff_agi;
+		this->treat_trickle = this->getTreatmentTrickle();
+	}
+	if (e->buff_sen > 0) {
+		this->sen_buff -= e->buff_sen;
+		this->treat_trickle = this->getTreatmentTrickle();
+	}
+	if (e->buff_int > 0) {
+		this->int_buff -= e->buff_int;
+		this->treat_trickle = this->getTreatmentTrickle();
+	}
 	if (e->buff_psy > 0) this->psy_buff -= e->buff_psy;
 	if (e->buff_treat > 0) this->treat_buff -= e->buff_treat;
 }
@@ -138,11 +165,17 @@ void Stats::removeFromStatImplant(SmartImplant* i) {
 		case STA:
 			this->sta_buff -= get_ability_buff_amount_from_ql(ps.first, i->current_ql); break;
 		case AGI:
-			this->agi_buff -= get_ability_buff_amount_from_ql(ps.first, i->current_ql); break;
+			this->agi_buff -= get_ability_buff_amount_from_ql(ps.first, i->current_ql);
+			this->treat_trickle = this->getTreatmentTrickle();
+			break;
 		case SEN:
-			this->sen_buff -= get_ability_buff_amount_from_ql(ps.first, i->current_ql); break;
+			this->sen_buff -= get_ability_buff_amount_from_ql(ps.first, i->current_ql);
+			this->treat_trickle = this->getTreatmentTrickle();
+			break;
 		case INT:
-			this->int_buff -= get_ability_buff_amount_from_ql(ps.first, i->current_ql); break;
+			this->int_buff -= get_ability_buff_amount_from_ql(ps.first, i->current_ql);
+			this->treat_trickle = this->getTreatmentTrickle();
+			break;
 		case PSY:
 			this->psy_buff -= get_ability_buff_amount_from_ql(ps.first, i->current_ql); break;
 		case TREAT:
@@ -152,7 +185,7 @@ void Stats::removeFromStatImplant(SmartImplant* i) {
 	}
 }
 
-void Stats::displayStat() const {
+void Stats::displayStats() const {
 	std::cout << "-------------------------------------------------------------------------" << std::endl;
 	std::cout << "|   STR   |   STA   |   AGI   |   SEN   |   INT   |   PSY   |   TREAT   |" << std::endl;
 	std::cout << "-------------------------------------------------------------------------" << std::endl;
@@ -198,4 +231,5 @@ void Stats::displayStat() const {
 	to = s.length();
 	for (unsigned int i = 0; i < 11 - to; i++) s += " ";
 	std::cout << "|" << s << "|" << std::endl;
+	std::cout << "-------------------------------------------------------------------------" << std::endl;
 }

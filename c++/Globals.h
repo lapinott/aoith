@@ -4,6 +4,7 @@ struct SmartImplant;
 struct Equippable;
 struct Setup;
 struct Stats;
+struct Strategies;
 
 enum STAT {
 	STR,
@@ -30,6 +31,12 @@ std::string get_potency_string(POTENCY p);
 unsigned int get_ability_buff_amount_from_ql(POTENCY p, unsigned int ql);
 
 unsigned int get_treatment_buff_amount_from_ql(POTENCY p, unsigned int ql);
+
+unsigned int get_equippable_id(Equippable* e);
+
+unsigned int get_implant_id(SmartImplant* i);
+
+bool equip_item_id(unsigned int item_id);
 
 enum SLOTS {
 
@@ -70,7 +77,5 @@ extern Setup* g_setup;
 // Stat
 extern Stats* g_stats;
 
-// BASE function -> display base stats
-// LIST functions -> equippables + implants
-// STAT function -> display stat
-// SETUP function -> display setup
+// Strategies
+extern Strategies* g_strategies;

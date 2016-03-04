@@ -25,6 +25,8 @@ int main() {
 	g_equippables->push_back(new Equippable("Overheated Light Tank Armor", A_BACK, 1, 1, 1, 1, 1, 1, 0));
 	g_equippables->push_back(new Equippable("Pure Novictum Ring for the Control Unit", A_RFINGER, 0, 0, 0, 0, 8, 0, 0));
 	g_equippables->push_back(new Equippable("Platinum Filigree Ring set with a Perfectly Cut Ruby Pearl", A_RFINGER, 0, 0, 0, 4, 4, 0, 0));
+	g_equippables->push_back(new Equippable("Platinum Filigree Ring set with a Perfectly Cut Ruby Pearl", A_LFINGER, 0, 0, 0, 4, 4, 0, 0));
+	g_equippables->push_back(new Equippable("Platinum Filigree Ring set with a Perfectly Cut Ruby Pearl", A_RFINGER, 0, 0, 0, 5, 5, 0, 0));
 	g_equippables->push_back(new Equippable("Platinum Filigree Ring set with a Perfectly Cut Ruby Pearl", A_LFINGER, 0, 0, 0, 5, 5, 0, 0));
 	g_equippables->push_back(new Equippable("Platinum Filigree Ring set with a Perfectly Cut Almandine", A_RFINGER, 4, 0, 4, 0, 0, 0, 0));
 	g_equippables->push_back(new Equippable("Platinum Filigree Ring set with a Perfectly Cut Almandine", A_LFINGER, 4, 0, 4, 0, 0, 0, 0));
@@ -134,17 +136,8 @@ int main() {
 	requires_ability = std::vector<STAT>{ AGI, SEN, INT };
 	g_implants->push_back(new SmartImplant("Ear Implant: Psychic Faded", I_EAR, buffed_stat, requires_ability));
 
-	// Test
-	/*
-	g_setup->equipEquippable(g_stats, (*g_equippables)[0]);
-	g_setup->equipEquippable(g_stats, (*g_equippables)[1]);
-	g_setup->removeEquippable(g_stats, (*g_equippables)[0]);
-	g_setup->equipEquippable(g_stats, (*g_equippables)[1]);
-	g_stats->displayStat();
-	//*/
-
-	// ++stategies
-	// ++console UI loop commands
+	// Init stats
+	g_stats->initStats(95, 55, 58, 46, 68, 58, 224);
 
 	// Welcome
 	std::cout << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" << std::endl;
@@ -155,12 +148,15 @@ int main() {
 	handleCommand("help");
 
 	// Loop commands
-	std::string command = "";
-	while (std::cout << "> " && std::cin >> command) {
+	char command[100];
+	while (std::cout << std::endl << "> " && std::cin.getline(command, sizeof(command))) {
 
 		// Handle command
-		if (command == "exit") break;
-		handleCommand(command);
+		if (std::string(command) == "exit") break;
+		else if (std::string(command) != "") {
+			std::cout << std::endl;
+			handleCommand(command);
+		}
 	}
 
 	// Out

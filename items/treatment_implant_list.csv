@@ -1,0 +1,4 @@
+#type[weapon, armor, implant], slots, potency[shining, bright, faded], name, image, buff, reqs
+i,1,s,Head Implant: Treatment Shiny,195261.gif,treat,agi|sen|int|psy
+i,0,b,Eye Implant: Treatment Bright,12712.gif,treat,agi|sen|int
+i,9,f,Right-Hand Implant: Treatment Faded,12670.gif,treat,sta|agi|sen|int

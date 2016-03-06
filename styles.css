@@ -1,0 +1,243 @@
+html, body {
+	margin:0;
+	padding:0;
+	font-family:sans-serif;
+	font-size:0.95em;
+}
+
+.ce {
+	border:1px dotted #ccc;
+	min-width:75px;
+	max-width:75px;
+}
+
+.nce {
+	border:1px solid #ccc;
+	min-width:75px;
+	max-width:85px;
+	background:#ddd;
+	*font-weight:bold;
+}
+
+.cb {
+	clear:both;
+}
+
+.ul {
+	text-decoration:underline;
+}
+
+.bigger {
+	font-size:1.1em;
+}
+
+div#main_frame {
+	padding:4px;
+}
+
+div.equip_table_container {
+	float:left;
+	border:2px solid #ccc;
+	margin-right:1px;
+}
+
+div.logger_container {
+	float:left;
+	border:1px solid #ccc;
+	margin-right:1px;
+	width:250px;
+	height:350px;
+	position:relative;
+}
+
+div#logger_control_bar {
+	position:absolute;
+	bottom:0;
+	left:0;
+	width:248px;
+	background:#777;
+	border:1px solid #ccc;
+}
+
+div#logger_control_bar input {
+	margin:0;
+	padding:2px 0;
+	display:block;
+	border:1px solid #777;
+	padding:2px;
+}
+
+input#custom_msg {
+	width:242px;
+}
+
+input#remove_last_entry {
+	width:248px;
+}
+
+input#remove_last_entry:active {
+	background:#f93;
+	color:white;
+}
+
+div#logger_container > div#log {
+	background:red;
+	width:240px;
+	padding:5px;
+	background:#111;
+	color:white;
+	height:290px;
+	overflow-y:scroll;
+}
+
+div#logger_container > div#log > p {
+	font-size:0.7em;
+	margin:1px 0 0;
+	border-bottom:1px dashed #444;
+	padding-bottom:1px;
+}
+
+table#weapons_table {
+	background:url(img/GFX_GUI_WEARVIEW_BG1.png) no-repeat center center;
+}
+
+table#armor_table {
+	background:url(img/GFX_GUI_WEARVIEW_BG1.png) no-repeat center center;
+}
+
+table#implants_table {
+	background:url(img/GFX_GUI_WEARVIEW_BG2.png) no-repeat center center;
+}
+
+table.equip_table > tbody {
+	color:white;
+	text-shadow:0 0 2px black;
+}
+
+table.equip_table td {
+	background:rgba(0, 0, 0, 0.25);
+	width:100px;
+	height:75px;
+	text-align:center;
+}
+
+div.stats_table_container {
+	float:right;
+	margin-left:1px;
+}
+
+table.stats_table {
+	border:1px solid #ccc;
+}
+
+table.equip_table td {
+	position:relative;
+}
+
+table.stats_table > thead {
+	font-weight:bold;
+	background:gray;
+	color:white;
+	text-align:center;
+}
+
+table.stats_table span.stat_rel_ql {
+	font-size:0.6em;
+	color:gray;
+}
+
+table.stats_table span.stat_treat_trickle {
+	font-size:0.6em;
+	color:green;
+}
+
+table.stats_table > thead td {
+	padding:1px 0;
+}
+
+table.stats_table td {
+	padding:0 2px;
+}
+
+fieldset#items_container {
+	border-radius:2px;
+	border:1px solid #aaa;
+	max-height:300px;
+	overflow-y:scroll;
+	margin-top:0.5em;
+}
+
+div.list_equippable {
+	display:inline-block;
+	width:92px;
+	height:92px;
+	border:1px solid #ddd;
+	margin:0 2px 2px 0;
+	text-align:center;
+	padding:4px;
+	cursor:pointer;
+	overflow:hidden;
+	position:relative;
+}
+
+div.list_equippable:hover {
+	background:#eee;
+	border-color:#777;
+}
+
+div.list_equippable_name {
+	font-size:0.7em;
+}
+
+div.slot_overlay {
+	position:absolute;
+	top:1px;
+	left:1px;
+	overflow:hidden;
+	z-index:100;
+	background:rgba(255, 55, 55, 0.75);
+	border:1px solid red;
+	padding:4px;
+	color:white;
+	font-size:0.7em;
+}
+
+div.equippable_overlay {
+	position:absolute;
+	top:1px;
+	left:1px;
+	width:90px;
+	height:90px;
+	overflow:hidden;
+	z-index:100;
+	background:rgba(0,0,0,0.7);
+	padding:4px;
+	color:white;
+	font-size:0.7em;
+}
+
+div.equippable_overlay > span, div.slot_overlay > span {
+	display:block;
+}
+
+fieldset#ability_implants_container {
+	border-radius:2px;
+	border:1px solid #aaa;
+	margin-top:0.5em;
+}
+
+fieldset#ability_implants_container fieldset {
+	display:inline-block;
+	border:1px solid #ccc;
+	border-radius:2px;
+}
+
+fieldset#ability_implants_container fieldset > legend {
+	font-size:0.7em;
+}
+
+fieldset#treatment_implants_container {
+	border-radius:2px;
+	border:1px solid #aaa;
+	margin-top:0.5em;
+}

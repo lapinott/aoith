@@ -1,0 +1,6 @@
+#1 compute all possible equipment setups or hardcode them
+	- with locked slots
+	- delete junk setups (ie different pillows / different buffing rings / ...)
+	- delete duplicates = setups with same exact buffing values
+
+#2 do implants equip tree with smart implants ++ smart setup !! = fetch best setup for current imp equip

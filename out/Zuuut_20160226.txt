@@ -1,0 +1,47 @@
+[1] Explosif's Polychromatic Pillows [int/psy] equipped.
+[2] Explosif's Polychromatic Pillows [int/psy] equipped.
+[3] Shades of Lucubration equipped.
+[4] Advanced Scent Sensor equipped.
+[5] Lya's Sangi Patch equipped.
+[6] Lya's Sangi Patch equipped.
+[7] Overheated Light Tank Armor equipped.
+[8] Pure Novictum Ring for the Control Unit equipped.
+[9] Platinum Filigree Ring set with a Perfectly Cut Ruby Pearl equipped.
+[10] Aban Fala's Bracer of Logic equipped.
+[11] Aban Fala's Bracer of Logic equipped.
+[12] Omni-Med Suit Sleeves equipped.
+[13] Omni-Med Suit Shirt equipped.
+[14] Omni-Med Suit Boots equipped.
+[15] Omni-Med Suit Gloves equipped.
+[16] Omni-Med Suit Trousers equipped.
+[17] Omni-Med Suit Sleeves equipped.
+[18] Treatment Library equipped.
+[19] Right-Hand Implant: Treatment Faded [ql67/int] equipped.
+[20] Eye Implant: Treatment Bright [ql67/int] equipped.
+[21] Head Implant: Treatment Shiny [ql67/int] equipped.
+[22] Ear Implant: Intelligence Faded [ql67/int] equipped.
+[23] Right-Hand Implant: Treatment Faded [ql72/int] swapped with Right-Hand Implant: Treatment Faded [ql72/int].
+[24] Eye Implant: Treatment Bright [ql72/int] swapped with Eye Implant: Treatment Bright [ql72/int].
+[25] Head Implant: Treatment Shiny [ql72/int] swapped with Head Implant: Treatment Shiny [ql72/int].
+[26] Explosif's Polychromatic Pillows [int/psy] swapped with Explosif's Polychromatic Pillows [agi/sense].
+[27] Explosif's Polychromatic Pillows [int/psy] swapped with Explosif's Polychromatic Pillows [agi/sense].
+[28] Aban Fala's Bracer of Logic swapped with Aban Fala's Bracer of Dexterity.
+[29] Aban Fala's Bracer of Logic swapped with Aban Fala's Bracer of Dexterity.
+[30] Pure Novictum Ring for the Control Unit swapped with Platinum Filigree Ring set with a Perfectly Cut Almandine.
+[31] Platinum Filigree Ring set with a Perfectly Cut Ruby Pearl swapped with Platinum Filigree Ring set with a Perfectly Cut Almandine.
+[32] Omni-Med Suit Shirt swapped with Nova Dillon Body Armor.
+[33] Omni-Med Suit Sleeves swapped with Nova Dillon Armor Sleeves.
+[34] Omni-Med Suit Gloves swapped with Nova Dillon Armor Gloves.
+[35] Omni-Med Suit Trousers swapped with Nova Dillon Armor Pants.
+[36] Omni-Med Suit Boots swapped with Nova Nova Dillon Armor Boots.
+[37] Waist Implant: Agility Faded [ql54/agi] equipped.
+[38] Feet Implant: Agility Bright [ql58/agi] equipped.
+[39] Leg Implant: Agility Shining [ql64/agi] equipped.
+[40] Waist Implant: Agility Faded removed.
+[41] Waist Implant: Agility Faded [ql71/agi] equipped.
+[42] Feet Implant: Agility Bright [ql69/agi] swapped with Feet Implant: Agility Bright [ql69/agi].
+[43] Omni-Med Suit Sleeves swapped with Nova Dillon Armor Sleeves.
+[44] Leg Implant: Agility Shining [ql66/agi] swapped with Leg Implant: Agility Shining [ql66/agi].
+[45] Nova Dillon Body Armor swapped with Omni-Med Suit Shirt.
+[46] Nova Dillon Armor Sleeves swapped with Omni-Med Suit Sleeves.
+[47] Chest Implant: Sense Shining [ql75/agi] equipped.

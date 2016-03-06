@@ -1,0 +1,80 @@
+Ability implants
+
+Str buff:
+	Req:
+		Str: larm | rarm
+		Sta: chest | larm | rarm
+		Agi: chest | rarm
+		Sen: larm | rarm
+		Int: chest
+		Psy: chest
+		
+	larm	str|sta|sen			bright
+	rarm	str|sta|agi|sen		shining
+	chest	sta|agi|int|psy		faded
+
+Sta buff:
+	Req:
+		Str: chest
+		Sta: chest | leg | waist
+		Agi: chest | leg | waist
+		Sen: waist
+		Int: chest
+		Psy: waist
+		
+	chest	str|sta|agi			shining
+	leg		sta|agi				bright
+	waist	sta|agi|sen|psy		faded
+
+Agi buff:
+	Req:
+		Str: -
+		Sta: feet | leg | waist
+		Agi: feet | leg | waist
+		Sen: waist
+		Int: -
+		Psy: waist
+		
+	feet	sta|agi				bright
+	leg		sta|agi				shining
+	waist	sta|agi|sen|psy		faded
+
+Sen buff
+	Req:
+		Str: chest
+		Sta: head | waist
+		Agi: chest | head | waist
+		Sen: head | waist
+		Int: chest |head
+		Psy: chest | head | waist
+		
+	chest	str|agi|int|psy		shining
+	head	sta|agi|sen|int|psy	faded
+	waist	sta|agi|sen|psy		bright
+
+Int buff
+	Req:
+		Str: -
+		Sta: -
+		Agi: ear | eye | head
+		Sen: ear | eye | head
+		Int: ear | eye | head
+		Psy: ear | eye | head
+		
+	ear		agi|sen|int|psy		faded
+	eye		agi|sen|int|psy		bright
+	head	agi|sen|int|psy		shining
+		
+Psy buff
+	Req:
+		Str: chest
+		Sta: chest
+		Agi: ear | head
+		Sen: ear | head
+		Int: chest | ear | head
+		Psy: chest | head
+		
+	chest	str|sta|int|psy		bright
+	ear		agi|sen|int			faded
+	head	agi|sen|int|psy		shining
+	

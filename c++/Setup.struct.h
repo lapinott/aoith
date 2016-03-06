@@ -25,8 +25,5 @@ struct Setup {
 	void removeImplant(Stats* stat, SmartImplant* i);
 
 
-	void adjust_to_best_ql(SmartImplant* i, std::vector<Equippable*>* equippables);
-
-
 	void displaySetup() const;
 };

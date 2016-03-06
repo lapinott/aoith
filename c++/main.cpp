@@ -20,7 +20,7 @@ int main() {
 	// Armor
 	g_equippables->push_back(new Equippable("Shades of Lucubration", A_HEAD, 0, 0, 0, 0, 30, 30, 0));
 	g_equippables->push_back(new Equippable("Lya's Sangi Patch", A_LSHOULDER, 0, 0, 4, 4, 0, 0, 0));
-	g_equippables->push_back(new Equippable("Lya's Sangi Patch", A_RSHOULDER, 0, 0, 4, 4, 0, 0, 0));
+	//g_equippables->push_back(new Equippable("Lya's Sangi Patch", A_RSHOULDER, 0, 0, 4, 4, 0, 0, 0));
 	g_equippables->push_back(new Equippable("Overheated Shoulderpad", A_RSHOULDER, 1, 1, 1, 1, 1, 1, 3));
 	g_equippables->push_back(new Equippable("Overheated Light Tank Armor", A_BACK, 1, 1, 1, 1, 1, 1, 0));
 	g_equippables->push_back(new Equippable("Pure Novictum Ring for the Control Unit", A_RFINGER, 0, 0, 0, 0, 8, 0, 0));

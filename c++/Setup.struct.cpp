@@ -142,7 +142,3 @@ void Setup::displaySetup() const {
 		else std::cout << "[" << get_slot_string(se.first) << "] empty." << std::endl;
 	}
 }
-
-void Setup::adjust_to_best_ql(SmartImplant* i, std::vector<Equippable*>* equippables) {
-	// bla!
-}

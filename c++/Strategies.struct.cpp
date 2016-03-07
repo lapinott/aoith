@@ -88,6 +88,10 @@ void Strategies::strategy_0() {
 
 	// Organize fine tuning
 	// treatment[/3 ?] / ability ratio by ABI
+	/*std::map<SLOTS, std::vector<std::pair<float, Equippable*>>> sre{};
+	for (Equippable* e : *g_equippables) {
+
+	}*/
 
 	// Print possible equippables combinations
 	int combinations = 1;
@@ -139,37 +143,9 @@ void Strategies::strategy_0() {
 		STAT highest_ability = (STAT)-1;
 		unsigned int highest_ability_value = 0;
 		for (STAT s : i->requires_ability) {
-			switch (s) {
-			case STR: if (this->max_str_stats.getMax(s) + sim_stats.base_str > highest_ability_value) {
-				highest_ability_value = this->max_str_stats.getMax(s) + sim_stats.base_str;
+			if (this->max_str_stats.getMax(s) + sim_stats.getMax(s) > highest_ability_value) {
+				highest_ability_value = this->max_str_stats.getMax(s) + sim_stats.getMax(s);
 				highest_ability = s;
-				break;
-			}
-			case STA: if (this->max_sta_stats.getMax(s) + sim_stats.base_sta > highest_ability_value) {
-				highest_ability_value = this->max_sta_stats.getMax(s) + sim_stats.base_sta;
-				highest_ability = s;
-				break;
-			}
-			case AGI: if (this->max_agi_stats.getMax(s) + sim_stats.base_agi > highest_ability_value) {
-				highest_ability_value = this->max_agi_stats.getMax(s) + sim_stats.base_agi;
-				highest_ability = s;
-				break;
-			}
-			case SEN: if (this->max_sen_stats.getMax(s) + sim_stats.base_sen > highest_ability_value) {
-				highest_ability_value = this->max_sen_stats.getMax(s) + sim_stats.base_sen;
-				highest_ability = s;
-				break;
-			}
-			case INT: if (this->max_int_stats.getMax(s) + sim_stats.base_int > highest_ability_value) {
-				highest_ability_value = this->max_int_stats.getMax(s) + sim_stats.base_int;
-				highest_ability = s;
-				break;
-			}
-			case PSY: if (this->max_psy_stats.getMax(s) + sim_stats.base_psy > highest_ability_value) {
-				highest_ability_value = this->max_psy_stats.getMax(s) + sim_stats.base_psy;
-				highest_ability = s;
-				break;
-			}
 			}
 		}
 
@@ -184,13 +160,38 @@ void Strategies::strategy_0() {
 		default: break;
 		}
 
+		// Put treatment gear in empty slots
+		for (std::pair<SLOTS, Equippable*> se : this->max_treat_setup.e_slots) {
+			if (sim_setup.e_slots[se.first] == nullptr && se.second != nullptr) {
+				sim_setup.equipEquippable(&sim_stats, se.second);
+			}
+		}
+
+		// Weight treatment swaps
+		std::map<float, Equippable*> swaps{};
+		for (Equippable* e : *g_equippables) {
+			if (sim_setup.e_slots[e->slot] != e && e->buff_treat > sim_setup.e_slots[e->slot]->buff_treat) {
+				float weight = 0.0f;
+				switch (highest_ability) {
+				case STR: weight = (float)e->buff_treat / sim_setup.e_slots[e->slot]->buff_str;  break;
+				case STA: weight = (float)e->buff_treat / sim_setup.e_slots[e->slot]->buff_sta;  break;
+				case AGI: weight = (float)e->buff_treat / sim_setup.e_slots[e->slot]->buff_agi;  break;
+				case SEN: weight = (float)e->buff_treat / sim_setup.e_slots[e->slot]->buff_sen;  break;
+				case INT: weight = (float)e->buff_treat / sim_setup.e_slots[e->slot]->buff_int;  break;
+				case PSY: weight = (float)e->buff_treat / sim_setup.e_slots[e->slot]->buff_psy;  break;
+				default: weight = 0;
+				}
+				swaps[weight] = e;
+			}
+		}
+
 		// Fine tune
-		unsigned int ql_abi = (int)std::floor(((float)highest_ability_value - 4.0f) / 2.0f);
+		unsigned int ql_abi = (int)std::floor(((float)sim_stats.getMax(highest_ability) - 4.0f) / 2.0f);
 		unsigned int ql_treat = (int)std::floor(((float)sim_stats.getMax(TREAT) - 1249.0f / 199.0f) / (940.0f / 199.0f));
-		if (ql_abi > ql_treat) {
-			while (ql_abi > ql_treat) {
-				// Put treatment gear in empty slots
-				for (sim_setup.e_slots)
+		for (std::pair<float, Equippable*> we : swaps) {
+			if (ql_abi > ql_treat) {
+				sim_setup.removeEquippable(&sim_stats, we.second->slot);
+				sim_setup.equipEquippable(&sim_stats, we.second);
 			}
 		}
 

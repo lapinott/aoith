@@ -135,10 +135,10 @@ void Setup::removeImplant(Stats* stat, SmartImplant* i) {
 void Setup::displaySetup() const {
 	for (std::pair<SLOTS, SmartImplant*> si : this->i_slots) {
 		if (si.second != nullptr) std::cout << "[" << get_slot_string(si.second->slot) << "|QL" << si.second->current_ql << "|" << get_stat_string(si.second->current_abi_req) << "-BASED] " << si.second->name << std::endl;
-		else std::cout << "[" << get_slot_string(si.first) << "] empty." << std::endl;
+		//else std::cout << "[" << get_slot_string(si.first) << "] empty." << std::endl;
 	}
 	for (std::pair<SLOTS, Equippable*> se : this->e_slots) {
 		if (se.second != nullptr) std::cout << "[" << get_slot_string(se.first) << "] " << se.second->name << std::endl;
-		else std::cout << "[" << get_slot_string(se.first) << "] empty." << std::endl;
+		//else std::cout << "[" << get_slot_string(se.first) << "] empty." << std::endl;
 	}
 }

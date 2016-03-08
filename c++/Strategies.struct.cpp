@@ -80,34 +80,17 @@ void Strategies::strategy_0() {
 	// Disable cout
 	std::cout.setstate(std::ios_base::failbit);
 
-	// Organize equippables by slots
-	std::map<SLOTS, std::vector<Equippable*>> equippables_by_slots{};
-	for (Equippable* e : (*g_equippables)) {
-		equippables_by_slots[e->slot].push_back(e);
+	// Set naked
+	for (std::pair<SLOTS, Equippable*> se : g_setup->e_slots) {
+		if (se.second != nullptr) g_setup->removeEquippable(g_stats, se.second);
 	}
-
-	// Organize fine tuning
-	// treatment[/3 ?] / ability ratio by ABI
-	/*std::map<SLOTS, std::vector<std::pair<float, Equippable*>>> sre{};
-	for (Equippable* e : *g_equippables) {
-
-	}*/
-
-	// Print possible equippables combinations
-	int combinations = 1;
-	for (std::pair<SLOTS, std::vector<Equippable*>> ebs : equippables_by_slots) combinations *= ebs.second.size();
-	std::cout << "Number of possible equippables combinations : " << combinations << "!" << std::endl;
-
-	// Organize implants by slots
-	std::map<SLOTS, std::vector<SmartImplant*>> implants_by_slots{};
-	for (SmartImplant* i : (*g_implants)) {
-		implants_by_slots[i->slot].push_back(i);
+	for (std::pair<SLOTS, SmartImplant*> si : g_setup->i_slots) {
+		if (si.second != nullptr) {
+			g_setup->removeImplant(g_stats, si.second);
+			si.second->current_ql = 0;
+			si.second->current_abi_req = (STAT)-1;
+		}
 	}
-
-	// Print possible implants combinations
-	combinations = 1;
-	for (std::pair<SLOTS, std::vector<SmartImplant*>> ibs : implants_by_slots) combinations *= ibs.second.size();
-	std::cout << "Number of possible implants combinations : " << combinations << "!" << std::endl;
 
 	// Create max setups
 	this->create_max_stat_setups(g_equippables);
@@ -124,6 +107,18 @@ void Strategies::strategy_0() {
 	// Seed rand
 	std::srand(std::chrono::high_resolution_clock::now().time_since_epoch().count());
 
+	// Ignore list
+	std::vector<SmartImplant*> i_ignore_list{};
+
+	// Max stats
+	unsigned int max_str = 0;
+	unsigned int max_sta = 0;
+	unsigned int max_agi = 0;
+	unsigned int max_sen = 0;
+	unsigned int max_int = 0;
+	unsigned int max_psy = 0;
+	unsigned int max_treat = 0;
+
 	while ((duration = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start).count()) < 5000) {
 
 		// Simulate
@@ -137,7 +132,9 @@ void Strategies::strategy_0() {
 		sim_setup.removeImplant(&sim_stats, i->slot);
 
 		// Remove gear
-		for (std::pair<SLOTS, Equippable*> se : sim_setup.e_slots) sim_setup.removeEquippable(&sim_stats, se.second);
+		for (std::pair<SLOTS, Equippable*> se : sim_setup.e_slots) {
+			if (se.second != nullptr) sim_setup.removeEquippable(&sim_stats, se.second);
+		}
 
 		// Checks which best ability to use
 		STAT highest_ability = (STAT)-1;
@@ -167,21 +164,32 @@ void Strategies::strategy_0() {
 			}
 		}
 
-		// Weight treatment swaps
-		std::map<float, Equippable*> swaps{};
+		// Put other gear in empty slots (Advanced Scent Sensor...)
 		for (Equippable* e : *g_equippables) {
-			if (sim_setup.e_slots[e->slot] != e && e->buff_treat > sim_setup.e_slots[e->slot]->buff_treat) {
+			if (sim_setup.e_slots[e->slot] == nullptr) {
+				sim_setup.equipEquippable(&sim_stats, e);
+			}
+		}
+
+		// Weight treatment swaps
+		std::multimap<float, Equippable*> swaps{};
+		for (std::pair<SLOTS, Equippable*> se : this->max_treat_setup.e_slots) {
+			if (
+				se.second != nullptr &&
+				sim_setup.e_slots[se.first] != se.second &&
+				se.second->buff_treat > sim_setup.e_slots[se.first]->buff_treat
+			) {
 				float weight = 0.0f;
 				switch (highest_ability) {
-				case STR: weight = (float)e->buff_treat / sim_setup.e_slots[e->slot]->buff_str;  break;
-				case STA: weight = (float)e->buff_treat / sim_setup.e_slots[e->slot]->buff_sta;  break;
-				case AGI: weight = (float)e->buff_treat / sim_setup.e_slots[e->slot]->buff_agi;  break;
-				case SEN: weight = (float)e->buff_treat / sim_setup.e_slots[e->slot]->buff_sen;  break;
-				case INT: weight = (float)e->buff_treat / sim_setup.e_slots[e->slot]->buff_int;  break;
-				case PSY: weight = (float)e->buff_treat / sim_setup.e_slots[e->slot]->buff_psy;  break;
+				case STR: weight = (float)sim_setup.e_slots[se.first]->buff_str / se.second->buff_treat;  break;
+				case STA: weight = (float)sim_setup.e_slots[se.first]->buff_sta / se.second->buff_treat;  break;
+				case AGI: weight = (float)sim_setup.e_slots[se.first]->buff_agi / se.second->buff_treat;  break;
+				case SEN: weight = (float)sim_setup.e_slots[se.first]->buff_sen / se.second->buff_treat;  break;
+				case INT: weight = (float)sim_setup.e_slots[se.first]->buff_int / se.second->buff_treat;  break;
+				case PSY: weight = (float)sim_setup.e_slots[se.first]->buff_psy / se.second->buff_treat;  break;
 				default: weight = 0;
 				}
-				swaps[weight] = e;
+				swaps.insert(std::make_pair(weight, se.second));
 			}
 		}
 
@@ -190,60 +198,87 @@ void Strategies::strategy_0() {
 		unsigned int ql_treat = (int)std::floor(((float)sim_stats.getMax(TREAT) - 1249.0f / 199.0f) / (940.0f / 199.0f));
 		for (std::pair<float, Equippable*> we : swaps) {
 			if (ql_abi > ql_treat) {
-				sim_setup.removeEquippable(&sim_stats, we.second->slot);
 				sim_setup.equipEquippable(&sim_stats, we.second);
+				ql_abi = (int)std::floor(((float)sim_stats.getMax(highest_ability) - 4.0f) / 2.0f);
+				ql_treat = (int)std::floor(((float)sim_stats.getMax(TREAT) - 1249.0f / 199.0f) / (940.0f / 199.0f));
 			}
 		}
 
-		// Put
-		// ...
+		// Implant simulate
+		SmartImplant i_sim = *i;
 
-		// Compare setups
-		// ...
+		// Simulate implant equip
+		sim_setup.equipImplant(&sim_stats, &i_sim);
 
-		// PASS/FAIL
-		// ... -> taking account for : less x ability / more y ability ?
-		// ... -> ignore list
-		// std::cout > fail
+		/* Compare
+		if (i_sim.current_ql > i->current_ql) {
+			g_setup->swapGear(g_stats, &sim_setup);
+			g_setup->equipImplant(g_stats, i);
+			ignore_list.clear();
+		}
+		//*/
 
-		// IF i NOT IN ignore_list (if implant equip. discarded add to ignore list; when any implant slotted, clear ignore list
+		//*
+		if (
+			sim_stats.getMax(STR) > g_stats->getMax(STR) ||
+			sim_stats.getMax(STA) > g_stats->getMax(STA) ||
+			sim_stats.getMax(AGI) > g_stats->getMax(AGI) ||
+			sim_stats.getMax(SEN) > g_stats->getMax(SEN) ||
+			sim_stats.getMax(INT) > g_stats->getMax(INT) ||
+			sim_stats.getMax(PSY) > g_stats->getMax(PSY) ||
+			sim_stats.getMax(TREAT) > g_stats->getMax(TREAT)
+		) {
+			if (sim_stats.getImplantsMax(STR) > max_str) max_str = sim_stats.getImplantsMax(STR);
+			if (sim_stats.getImplantsMax(STA) > max_sta) max_sta = sim_stats.getImplantsMax(STA);
+			if (sim_stats.getImplantsMax(AGI) > max_agi) max_agi = sim_stats.getImplantsMax(AGI);
+			if (sim_stats.getImplantsMax(SEN) > max_sen) max_sen = sim_stats.getImplantsMax(SEN);
+			if (sim_stats.getImplantsMax(INT) > max_int) max_int = sim_stats.getImplantsMax(INT);
+			if (sim_stats.getImplantsMax(PSY) > max_psy) max_psy = sim_stats.getImplantsMax(PSY);
+			if (sim_stats.getImplantsMax(TREAT) > max_treat) max_treat = sim_stats.getImplantsMax(TREAT);
+			max_str = std::max(max_str, sim_stats.getImplantsMax(STR));
+			max_sta = std::max(max_sta, sim_stats.getImplantsMax(STA));
+			max_agi = std::max(max_agi, sim_stats.getImplantsMax(AGI));
+			max_sen = std::max(max_sen, sim_stats.getImplantsMax(SEN));
+			max_int = std::max(max_int, sim_stats.getImplantsMax(INT));
+			max_psy = std::max(max_psy, sim_stats.getImplantsMax(PSY));
+			max_treat = std::max(max_treat, sim_stats.getImplantsMax(TREAT));
+			g_setup->swapGear(g_stats, &sim_setup);
+			g_setup->equipImplant(g_stats, i);
+			ignore_list.clear();
+		}
+		//*/
 
-		// SIMULATE -> Remove implant in i->slot
-
-		// FOR EACH IMP. ABI. REQ. : PUT MAX ABI
-
-		// Simulate 
-
-		// ROLL RANDOM + CHECK IF ABILITIES/TREATMENT GO HIGHER IF EQUIPPING IMPLANT - ELSE DISCARD
-		// -> potentials
-
-		// CHECK -> uneqip on copy of setup/stats then compare
-
-		// Unequip implant if slotted
-		if (g_setup->i_slots[i->slot] != nullptr) g_setup->removeImplant(g_stats, i->slot);
-
-		// Equip
-		g_setup->equipImplant(g_stats, i);
-
-		if (g_stats->getMax(SEN) > max_sense) {
-			max_sense = g_stats->getMax(SEN);
-			max_sense_setup = *g_setup;
-			max_sense_stats = *g_stats;
+		// Add current implant to ignore list
+		ignore_list.push_back(i);
+		if (ignore_list.size() == g_implants->size()) {
+			std::cout.clear();
+			freopen_s(&conout, "conout$", "w+t", stdout);
+			std::cout << "No more implant swaps available..." << std::endl;
+			break;
 		}
 
+		// ++
 		++counter;
+		//if (counter == 3) break;
 	}
 
 	// Reset cout
 	std::cout.clear();
 	freopen_s(&conout, "conout$", "w+t", stdout);
 
+	std::cout << "Max str. (implants) : " << max_str << std::endl;
+	std::cout << "Max sta. (implants) : " << max_sta << std::endl;
+	std::cout << "Max agi. (implants) : " << max_agi << std::endl;
+	std::cout << "Max sen. (implants) : " << max_sen << std::endl;
+	std::cout << "Max int. (implants) : " << max_int << std::endl;
+	std::cout << "Max psy. (implants) : " << max_psy << std::endl;
+	std::cout << "Max treat. (implants) : " << max_treat << std::endl;
+
 	// End
-	std::cout << "Elapsed time : " << duration << "ms" << std::endl;
-	std::cout << "Number of loops : " << counter << std::endl;
-	std::cout << "Max sense : " << max_sense << std::endl;
-	max_sense_stats.displayStats();
-	max_sense_setup.displaySetup();
+	std::cout << "Elapsed time : (implants) : " << duration << "ms" << std::endl;
+	std::cout << "Number of loops : (implants) : " << counter << std::endl;
+	//g_stats->displayStats();
+	//g_setup->displaySetup();
 
 	return;
 }

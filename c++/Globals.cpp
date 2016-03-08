@@ -21,6 +21,9 @@ Stats* g_stats = new Stats(0, 0, 0, 0, 0, 0, 0);
 // Strategies
 Strategies* g_strategies = new Strategies();
 
+// Init stats
+std::vector<unsigned int> g_init_stats = { 0,0,0,0,0,0,0 };
+
 std::string get_stat_string(STAT s) {
 	switch (s) {
 	case STR: return "STR"; break;
@@ -97,9 +100,9 @@ unsigned int get_ability_buff_amount_from_ql(POTENCY p, unsigned int ql) {
 	case SHINING:
 		return (int)std::round(50.0f / 199 * ql + 945.0f / 199); break;
 	case BRIGHT:
-		return (int)std::round(30.0f / 199 * ql + 567.0f / 199);  break;
+		return (int)std::round(30.0f / 199 * ql + 567.0f / 199); break;
 	case FADED:
-		return (int)std::round(20.0f / 199 * ql + 378.0f / 199);  break;
+		return (int)std::round(20.0f / 199 * ql + 378.0f / 199); break;
 	default: return 0;
 	}
 }
@@ -109,9 +112,9 @@ unsigned int get_treatment_buff_amount_from_ql(POTENCY p, unsigned int ql) {
 	case SHINING:
 		return (int)std::round(99.0f / 199 * ql + 1095.0f / 199); break;
 	case BRIGHT:
-		return (int)std::round(60.0f / 199 * ql + 537.0f / 199);  break;
+		return (int)std::round(60.0f / 199 * ql + 537.0f / 199); break;
 	case FADED:
-		return (int)std::round(40.0f / 199 * ql + 358.0f / 199);  break;
+		return (int)std::round(40.0f / 199 * ql + 358.0f / 199); break;
 	default: return 0;
 	}
 }
@@ -219,15 +222,16 @@ bool handleCommand(std::string cmd) {
 
 	}
 	else if (sub_commands[0] == "init" && std::regex_match(cmd, std::regex("init\\s+\\d+\\s+\\d+\\s+\\d+\\s+\\d+\\s+\\d+\\s+\\d+\\s+\\d+\\s*"))) {
-		g_stats->initStats(
-			std::stoi(sub_commands[1]),
-			std::stoi(sub_commands[2]),
-			std::stoi(sub_commands[3]),
-			std::stoi(sub_commands[4]),
-			std::stoi(sub_commands[5]),
-			std::stoi(sub_commands[6]),
-			std::stoi(sub_commands[7])
-		);
+		g_init_stats = {
+			std::stoul(sub_commands[1]),
+			std::stoul(sub_commands[2]),
+			std::stoul(sub_commands[3]),
+			std::stoul(sub_commands[4]),
+			std::stoul(sub_commands[5]),
+			std::stoul(sub_commands[6]),
+			std::stoul(sub_commands[7])
+		};
+		g_stats->initStats(g_init_stats);
 		g_stats->displayStats();
 	}
 	else if (sub_commands[0] == "equip" && std::regex_match(cmd, std::regex("equip\\s+\\d+.*"))) {

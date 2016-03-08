@@ -13,38 +13,31 @@ Stats::Stats(unsigned int base_str, unsigned int base_sta, unsigned int base_agi
 	this->base_treat = (int)std::round((float)this->base_treat - this->treat_trickle);
 
 	// Init values
-	this->str_buff = 0;
-	this->sta_buff = 0;
-	this->agi_buff = 0;
-	this->sen_buff = 0;
-	this->int_buff = 0;
-	this->psy_buff = 0;
-	this->treat_buff = 0;
-	this->str_buff = 0;
-	this->sta_buff = 0;
-	this->agi_buff = 0;
-	this->sen_buff = 0;
-	this->int_buff = 0;
-	this->psy_buff = 0;
-	this->treat_buff = 0;
+	this->e_str_buff = 0;
+	this->e_sta_buff = 0;
+	this->e_agi_buff = 0;
+	this->e_sen_buff = 0;
+	this->e_int_buff = 0;
+	this->e_psy_buff = 0;
+	this->e_treat_buff = 0;
+	this->i_str_buff = 0;
+	this->i_sta_buff = 0;
+	this->i_agi_buff = 0;
+	this->i_sen_buff = 0;
+	this->i_int_buff = 0;
+	this->i_psy_buff = 0;
+	this->i_treat_buff = 0;
 }
 
-void Stats::initStats(
-	unsigned int base_str,
-	unsigned int base_sta,
-	unsigned int base_agi,
-	unsigned int base_sen,
-	unsigned int base_int,
-	unsigned int base_psy,
-	unsigned int base_treat) {
+void Stats::initStats(std::vector<unsigned int> init_stats) {
 
-	this->base_str = base_str;
-	this->base_sta = base_sta;
-	this->base_agi = base_agi;
-	this->base_sen = base_sen;
-	this->base_int = base_int;
-	this->base_psy = base_psy;
-	this->base_treat = base_treat;
+	this->base_str = init_stats[0];
+	this->base_sta = init_stats[1];
+	this->base_agi = init_stats[2];
+	this->base_sen = init_stats[3];
+	this->base_int = init_stats[4];
+	this->base_psy = init_stats[5];
+	this->base_treat = init_stats[6];
 
 	this->treat_trickle = 0.25f * (0.5f * this->base_int + 0.3f * this->base_agi + 0.2f * this->base_sen);
 	this->base_treat = (int)std::round((float)this->base_treat - this->treat_trickle);
@@ -52,13 +45,26 @@ void Stats::initStats(
 
 unsigned int Stats::getMax(STAT s) const {
 	switch (s) {
-	case STR: return this->base_str + this->str_buff; break;
-	case STA: return this->base_sta + this->sta_buff; break;
-	case AGI: return this->base_agi + this->agi_buff; break;
-	case SEN: return this->base_sen + this->sen_buff; break;
-	case INT: return this->base_int + this->int_buff; break;
-	case PSY: return this->base_psy + this->psy_buff; break;
-	case TREAT: return this->base_treat + this->treat_buff + (int)std::round(this->treat_trickle); break;
+	case STR: return this->base_str + this->e_str_buff + this->i_str_buff; break;
+	case STA: return this->base_sta + this->e_sta_buff + this->i_sta_buff; break;
+	case AGI: return this->base_agi + this->e_agi_buff + this->i_agi_buff; break;
+	case SEN: return this->base_sen + this->e_sen_buff + this->i_sen_buff; break;
+	case INT: return this->base_int + this->e_int_buff + this->i_int_buff; break;
+	case PSY: return this->base_psy + this->e_psy_buff + this->i_psy_buff; break;
+	case TREAT: return this->base_treat + this->e_treat_buff + this->i_treat_buff + (int)std::round(this->treat_trickle); break;
+	default: return 0;
+	}
+}
+
+unsigned int Stats::getImplantsMax(STAT s) const {
+	switch (s) {
+	case STR: return this->i_str_buff; break;
+	case STA: return this->i_sta_buff; break;
+	case AGI: return this->i_agi_buff; break;
+	case SEN: return this->i_sen_buff; break;
+	case INT: return this->i_int_buff; break;
+	case PSY: return this->i_psy_buff; break;
+	case TREAT: return this->i_treat_buff; break;
 	default: return 0;
 	}
 }
@@ -92,66 +98,66 @@ unsigned int Stats::getHighestAbilityValue(std::vector<STAT> stats) {
 }
 
 void Stats::addToStatEquippable(Equippable* e) {
-	if (e->buff_str > 0) this->str_buff += e->buff_str;
-	if (e->buff_sta > 0) this->sta_buff += e->buff_sta;
+	if (e->buff_str > 0) this->e_str_buff += e->buff_str;
+	if (e->buff_sta > 0) this->e_sta_buff += e->buff_sta;
 	if (e->buff_agi > 0) {
-		this->agi_buff += e->buff_agi;
+		this->e_agi_buff += e->buff_agi;
 		this->treat_trickle = this->getTreatmentTrickle();
 	}
 	if (e->buff_sen > 0) {
-		this->sen_buff += e->buff_sen;
+		this->e_sen_buff += e->buff_sen;
 		this->treat_trickle = this->getTreatmentTrickle();
 	}
 	if (e->buff_int > 0) {
-		this->int_buff += e->buff_int;
+		this->e_int_buff += e->buff_int;
 		this->treat_trickle = this->getTreatmentTrickle();
 	}
-	if (e->buff_psy > 0) this->psy_buff += e->buff_psy;
-	if (e->buff_treat > 0) this->treat_buff += e->buff_treat;
+	if (e->buff_psy > 0) this->e_psy_buff += e->buff_psy;
+	if (e->buff_treat > 0) this->e_treat_buff += e->buff_treat;
 }
 
 void Stats::removeFromStatEquippable(Equippable* e) {
-	if (e->buff_str > 0) this->str_buff -= e->buff_str;
-	if (e->buff_sta > 0) this->sta_buff -= e->buff_sta;
+	if (e->buff_str > 0) this->e_str_buff -= e->buff_str;
+	if (e->buff_sta > 0) this->e_sta_buff -= e->buff_sta;
 	if (e->buff_agi > 0) {
-		this->agi_buff -= e->buff_agi;
+		this->e_agi_buff -= e->buff_agi;
 		this->treat_trickle = this->getTreatmentTrickle();
 	}
 	if (e->buff_sen > 0) {
-		this->sen_buff -= e->buff_sen;
+		this->e_sen_buff -= e->buff_sen;
 		this->treat_trickle = this->getTreatmentTrickle();
 	}
 	if (e->buff_int > 0) {
-		this->int_buff -= e->buff_int;
+		this->e_int_buff -= e->buff_int;
 		this->treat_trickle = this->getTreatmentTrickle();
 	}
-	if (e->buff_psy > 0) this->psy_buff -= e->buff_psy;
-	if (e->buff_treat > 0) this->treat_buff -= e->buff_treat;
+	if (e->buff_psy > 0) this->e_psy_buff -= e->buff_psy;
+	if (e->buff_treat > 0) this->e_treat_buff -= e->buff_treat;
 }
 
 void Stats::addToStatImplant(SmartImplant* i) {
 	for (std::pair<POTENCY, STAT> ps : i->buffed_stat) {
 		switch (ps.second) {
 		case STR:
-			this->str_buff += get_ability_buff_amount_from_ql(ps.first, i->current_ql); break;
+			this->i_str_buff += get_ability_buff_amount_from_ql(ps.first, i->current_ql); break;
 		case STA:
-			this->sta_buff += get_ability_buff_amount_from_ql(ps.first, i->current_ql); break;
+			this->i_sta_buff += get_ability_buff_amount_from_ql(ps.first, i->current_ql); break;
 		case AGI:
-			this->agi_buff += get_ability_buff_amount_from_ql(ps.first, i->current_ql);
+			this->i_agi_buff += get_ability_buff_amount_from_ql(ps.first, i->current_ql);
 			this->treat_trickle = this->getTreatmentTrickle();
 			break;
 		case SEN:
-			this->sen_buff += get_ability_buff_amount_from_ql(ps.first, i->current_ql);
+			this->i_sen_buff += get_ability_buff_amount_from_ql(ps.first, i->current_ql);
 			this->treat_trickle = this->getTreatmentTrickle();
 			break;
 		case INT:
-			this->int_buff += get_ability_buff_amount_from_ql(ps.first, i->current_ql);
+			this->i_int_buff += get_ability_buff_amount_from_ql(ps.first, i->current_ql);
 			this->treat_trickle = this->getTreatmentTrickle();
 			break;
 		case PSY:
-			this->psy_buff += get_ability_buff_amount_from_ql(ps.first, i->current_ql); break;
+			this->i_psy_buff += get_ability_buff_amount_from_ql(ps.first, i->current_ql); break;
 		case TREAT:
-			this->treat_buff += get_treatment_buff_amount_from_ql(ps.first, i->current_ql); break;
+			this->i_treat_buff += get_treatment_buff_amount_from_ql(ps.first, i->current_ql); break;
 		default: break;
 		}
 	}
@@ -161,25 +167,25 @@ void Stats::removeFromStatImplant(SmartImplant* i) {
 	for (std::pair<POTENCY, STAT> ps : i->buffed_stat) {
 		switch (ps.second) {
 		case STR:
-			this->str_buff -= get_ability_buff_amount_from_ql(ps.first, i->current_ql); break;
+			this->i_str_buff -= get_ability_buff_amount_from_ql(ps.first, i->current_ql); break;
 		case STA:
-			this->sta_buff -= get_ability_buff_amount_from_ql(ps.first, i->current_ql); break;
+			this->i_sta_buff -= get_ability_buff_amount_from_ql(ps.first, i->current_ql); break;
 		case AGI:
-			this->agi_buff -= get_ability_buff_amount_from_ql(ps.first, i->current_ql);
+			this->i_agi_buff -= get_ability_buff_amount_from_ql(ps.first, i->current_ql);
 			this->treat_trickle = this->getTreatmentTrickle();
 			break;
 		case SEN:
-			this->sen_buff -= get_ability_buff_amount_from_ql(ps.first, i->current_ql);
+			this->i_sen_buff -= get_ability_buff_amount_from_ql(ps.first, i->current_ql);
 			this->treat_trickle = this->getTreatmentTrickle();
 			break;
 		case INT:
-			this->int_buff -= get_ability_buff_amount_from_ql(ps.first, i->current_ql);
+			this->i_int_buff -= get_ability_buff_amount_from_ql(ps.first, i->current_ql);
 			this->treat_trickle = this->getTreatmentTrickle();
 			break;
 		case PSY:
-			this->psy_buff -= get_ability_buff_amount_from_ql(ps.first, i->current_ql); break;
+			this->i_psy_buff -= get_ability_buff_amount_from_ql(ps.first, i->current_ql); break;
 		case TREAT:
-			this->treat_buff -= get_treatment_buff_amount_from_ql(ps.first, i->current_ql); break;
+			this->i_treat_buff -= get_treatment_buff_amount_from_ql(ps.first, i->current_ql); break;
 		default: break;
 		}
 	}

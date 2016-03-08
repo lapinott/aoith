@@ -55,6 +55,9 @@ Setup::Setup() {
 
 void Setup::equipEquippable(Stats* stat, Equippable* e) {
 
+	// Return if e null
+	if (e == nullptr) return;
+
 	// Return if already equipped
 	for (std::pair<SLOTS, Equippable*> se : this->e_slots) {
 		if (se.second == e) {
@@ -65,7 +68,7 @@ void Setup::equipEquippable(Stats* stat, Equippable* e) {
 
 	// Remove item if slot not empty
 	if (this->e_slots[e->slot] != nullptr) {
-		stat->removeFromStatEquippable(this->e_slots[e->slot]);
+		stat->removeFromStatEquippable(e);
 		std::cout << "[-] [" << get_slot_string(e->slot) << "] " << this->e_slots[e->slot]->name << " removed." << std::endl;
 	}
 
@@ -136,9 +139,18 @@ void Setup::displaySetup() const {
 	for (std::pair<SLOTS, SmartImplant*> si : this->i_slots) {
 		if (si.second != nullptr) std::cout << "[" << get_slot_string(si.second->slot) << "|QL" << si.second->current_ql << "|" << get_stat_string(si.second->current_abi_req) << "-BASED] " << si.second->name << std::endl;
 		//else std::cout << "[" << get_slot_string(si.first) << "] empty." << std::endl;
+		if (si.second != nullptr && si.second->name == "") {
+			int what = 123;
+		}
 	}
 	for (std::pair<SLOTS, Equippable*> se : this->e_slots) {
 		if (se.second != nullptr) std::cout << "[" << get_slot_string(se.first) << "] " << se.second->name << std::endl;
 		//else std::cout << "[" << get_slot_string(se.first) << "] empty." << std::endl;
+	}
+}
+
+void Setup::swapGear(Stats* stat, Setup* setup) {
+	for (std::pair<SLOTS, Equippable*> se : setup->e_slots) {
+		if (se.second != nullptr) this->equipEquippable(stat, se.second);
 	}
 }

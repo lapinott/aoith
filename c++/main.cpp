@@ -4,6 +4,7 @@
 #include "SmartImplant.struct.h"
 #include "Stats.struct.h"
 #include "Setup.struct.h"
+#include "Strategies.struct.h"
 
 int main() {
 
@@ -106,14 +107,14 @@ int main() {
 	requires_ability = std::vector<STAT>{ STA, AGI, SEN, PSY };
 	g_implants->push_back(new SmartImplant("Waist Implant: Sense Bright", I_WAIST, buffed_stat, requires_ability));
 
-	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(FADED, SEN) };
+	/*buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(FADED, SEN) };
 	requires_ability = std::vector<STAT>{ STA, AGI, SEN, INT, PSY };
-	g_implants->push_back(new SmartImplant("Head Implant: Sense Faded", I_HEAD, buffed_stat, requires_ability));
+	g_implants->push_back(new SmartImplant("Head Implant: Sense Faded", I_HEAD, buffed_stat, requires_ability));*/
 
 	// Int implants
-	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(SHINING, INT) };
+	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(SHINING, INT), std::make_pair(FADED, SEN) };
 	requires_ability = std::vector<STAT>{ AGI, SEN, INT, PSY };
-	g_implants->push_back(new SmartImplant("Head Implant: Intelligence Shining", I_HEAD, buffed_stat, requires_ability));
+	g_implants->push_back(new SmartImplant("Head Implant: Intelligence Shining / Sense faded", I_HEAD, buffed_stat, requires_ability));
 
 	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(BRIGHT, INT) };
 	requires_ability = std::vector<STAT>{ AGI, SEN, INT, PSY };
@@ -137,7 +138,8 @@ int main() {
 	g_implants->push_back(new SmartImplant("Ear Implant: Psychic Faded", I_EAR, buffed_stat, requires_ability));
 
 	// Init stats
-	g_stats->initStats(95, 55, 58, 46, 68, 58, 224);
+	g_init_stats = { 95, 55, 58, 46, 68, 58, 224 };
+	g_stats->initStats(g_init_stats);
 
 	// Welcome
 	std::cout << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" << std::endl;
@@ -146,6 +148,16 @@ int main() {
 
 	// Display help
 	handleCommand("help");
+
+	/*Strategies test_strat = Strategies();
+	test_strat.create_max_stat_setups(g_equippables);
+	test_strat.max_str_setup.displaySetup();
+	test_strat.max_sta_setup.displaySetup();
+	test_strat.max_agi_setup.displaySetup();
+	test_strat.max_sen_setup.displaySetup();
+	test_strat.max_int_setup.displaySetup();
+	test_strat.max_psy_setup.displaySetup();
+	test_strat.max_treat_setup.displaySetup();*/
 
 	// Loop commands
 	char command[100];

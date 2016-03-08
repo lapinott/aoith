@@ -25,5 +25,8 @@ struct Setup {
 	void removeImplant(Stats* stat, SmartImplant* i);
 
 
+	void swapGear(Stats* stat, Setup* setup);
+
+
 	void displaySetup() const;
 };

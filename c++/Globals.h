@@ -79,3 +79,6 @@ extern Stats* g_stats;
 
 // Strategies
 extern Strategies* g_strategies;
+
+// Init stats
+extern std::vector<unsigned int> g_init_stats;

@@ -1,6 +1,6 @@
 #pragma once
 
-struct SmartImplant {
+struct Implant {
 
 	// Props
 	std::string id;
@@ -17,5 +17,5 @@ struct SmartImplant {
 	unsigned int current_ql;
 	STAT current_abi_req;
 
-	SmartImplant(std::string name, SLOTS slot, std::vector<std::pair<POTENCY, STAT>> buffed_stat, std::vector<STAT> requires_ability);
+	Implant(std::string name, SLOTS slot, std::vector<std::pair<POTENCY, STAT>> buffed_stat, std::vector<STAT> requires_ability);
 };

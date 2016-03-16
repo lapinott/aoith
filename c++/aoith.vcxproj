@@ -29,8 +29,7 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Setup.struct.cpp" />
-    <ClCompile Include="SmartImplant.struct.cpp" />
-    <ClCompile Include="Stats.struct.cpp" />
+    <ClCompile Include="Implant.struct.cpp" />
     <ClCompile Include="Strategies.struct.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -38,8 +37,7 @@
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Includes.h" />
     <ClInclude Include="Setup.struct.h" />
-    <ClInclude Include="SmartImplant.struct.h" />
-    <ClInclude Include="Stats.struct.h" />
+    <ClInclude Include="Implant.struct.h" />
     <ClInclude Include="Strategies.struct.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

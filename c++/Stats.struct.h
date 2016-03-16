@@ -43,7 +43,7 @@ struct Stats {
 
 	unsigned int getMax(STAT s) const;
 
-	unsigned int Stats::getImplantsMax(STAT s) const;
+	unsigned int getImplantsMax(STAT s) const;
 
 	STAT getHighestAbility(std::vector<STAT> stats);
 
@@ -58,9 +58,9 @@ struct Stats {
 	void removeFromStatEquippable(Equippable* e);
 
 
-	void addToStatImplant(SmartImplant* i);
+	void addToStatImplant(Implant* i);
 
-	void removeFromStatImplant(SmartImplant* i);
+	void removeFromStatImplant(Implant* i);
 
 
 	void displayStats() const;

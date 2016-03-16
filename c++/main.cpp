@@ -1,8 +1,7 @@
 #include "Includes.h"
 #include "Globals.h"
 #include "Equippable.struct.h"
-#include "SmartImplant.struct.h"
-#include "Stats.struct.h"
+#include "Implant.struct.h"
 #include "Setup.struct.h"
 #include "Strategies.struct.h"
 
@@ -49,97 +48,97 @@ int main() {
 	// Treatment implants
 	std::vector<std::pair<POTENCY, STAT>> buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(SHINING, TREAT), std::make_pair(FADED, SEN) };
 	std::vector<STAT> requires_ability = std::vector<STAT>{ AGI, SEN, INT, PSY };
-	g_implants->push_back(new SmartImplant("Head Implant: Treatment Shiny", I_HEAD, buffed_stat, requires_ability));
+	g_implants->push_back(new Implant("Head Implant: Treatment Shiny", I_HEAD, buffed_stat, requires_ability));
 
 	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(BRIGHT, TREAT) };
 	requires_ability = std::vector<STAT>{ AGI, SEN, INT };
-	g_implants->push_back(new SmartImplant("Eye Implant: Treatment Bright", I_EYES, buffed_stat, requires_ability));
+	g_implants->push_back(new Implant("Eye Implant: Treatment Bright", I_EYES, buffed_stat, requires_ability));
 
 	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(FADED, TREAT) };
 	requires_ability = std::vector<STAT>{ STA, AGI, SEN, INT };
-	g_implants->push_back(new SmartImplant("Right-Hand Implant: Treatment Faded", I_RHAND, buffed_stat, requires_ability));
+	g_implants->push_back(new Implant("Right-Hand Implant: Treatment Faded", I_RHAND, buffed_stat, requires_ability));
 
 	// Str implants
 	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(SHINING, STR) };
 	requires_ability = std::vector<STAT>{ STR, STA, AGI, SEN };
-	g_implants->push_back(new SmartImplant("Right-Arm Implant: Strength Shining", I_RARM, buffed_stat, requires_ability));
+	g_implants->push_back(new Implant("Right-Arm Implant: Strength Shining", I_RARM, buffed_stat, requires_ability));
 
 	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(BRIGHT, STR) };
 	requires_ability = std::vector<STAT>{ STR, STA, SEN };
-	g_implants->push_back(new SmartImplant("Left-Arm Implant: Strength Bright", I_LARM, buffed_stat, requires_ability));
+	g_implants->push_back(new Implant("Left-Arm Implant: Strength Bright", I_LARM, buffed_stat, requires_ability));
 
 	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(FADED, STR) };
 	requires_ability = std::vector<STAT>{ STA, AGI, INT, PSY };
-	g_implants->push_back(new SmartImplant("Chest Implant: Strength Faded", I_CHEST, buffed_stat, requires_ability));
+	g_implants->push_back(new Implant("Chest Implant: Strength Faded", I_CHEST, buffed_stat, requires_ability));
 
 	// Sta implants
 	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(SHINING, STA) };
 	requires_ability = std::vector<STAT>{ STR, STA, AGI };
-	g_implants->push_back(new SmartImplant("Chest Implant: Stamina Shining", I_CHEST, buffed_stat, requires_ability));
+	g_implants->push_back(new Implant("Chest Implant: Stamina Shining", I_CHEST, buffed_stat, requires_ability));
 
 	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(BRIGHT, STA) };
 	requires_ability = std::vector<STAT>{ STA, AGI };
-	g_implants->push_back(new SmartImplant("Leg Implant: Stamina Bright", I_LEGS, buffed_stat, requires_ability));
+	g_implants->push_back(new Implant("Leg Implant: Stamina Bright", I_LEGS, buffed_stat, requires_ability));
 
 	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(FADED, STA) };
 	requires_ability = std::vector<STAT>{ STA, AGI, SEN, PSY };
-	g_implants->push_back(new SmartImplant("Waist Implant: Stamina Faded", I_WAIST, buffed_stat, requires_ability));
+	g_implants->push_back(new Implant("Waist Implant: Stamina Faded", I_WAIST, buffed_stat, requires_ability));
 
 	// Agi implants
 	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(SHINING, AGI) };
 	requires_ability = std::vector<STAT>{ STA, AGI };
-	g_implants->push_back(new SmartImplant("Leg Implant: Agility Shining", I_LEGS, buffed_stat, requires_ability));
+	g_implants->push_back(new Implant("Leg Implant: Agility Shining", I_LEGS, buffed_stat, requires_ability));
 
 	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(BRIGHT, AGI) };
 	requires_ability = std::vector<STAT>{ STA, AGI };
-	g_implants->push_back(new SmartImplant("Feet Implant: Agility Bright", I_FEET, buffed_stat, requires_ability));
+	g_implants->push_back(new Implant("Feet Implant: Agility Bright", I_FEET, buffed_stat, requires_ability));
 
 	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(FADED, AGI) };
 	requires_ability = std::vector<STAT>{ STA, AGI, SEN, PSY };
-	g_implants->push_back(new SmartImplant("Waist Implant: Agility Faded", I_WAIST, buffed_stat, requires_ability));
+	g_implants->push_back(new Implant("Waist Implant: Agility Faded", I_WAIST, buffed_stat, requires_ability));
 
 	// Sense implants
 	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(SHINING, SEN) };
 	requires_ability = std::vector<STAT>{ STR, AGI, INT, PSY };
-	g_implants->push_back(new SmartImplant("Chest Implant: Sense Shining", I_CHEST, buffed_stat, requires_ability));
+	g_implants->push_back(new Implant("Chest Implant: Sense Shining", I_CHEST, buffed_stat, requires_ability));
 
 	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(BRIGHT, SEN) };
 	requires_ability = std::vector<STAT>{ STA, AGI, SEN, PSY };
-	g_implants->push_back(new SmartImplant("Waist Implant: Sense Bright", I_WAIST, buffed_stat, requires_ability));
+	g_implants->push_back(new Implant("Waist Implant: Sense Bright", I_WAIST, buffed_stat, requires_ability));
 
 	/*buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(FADED, SEN) };
 	requires_ability = std::vector<STAT>{ STA, AGI, SEN, INT, PSY };
-	g_implants->push_back(new SmartImplant("Head Implant: Sense Faded", I_HEAD, buffed_stat, requires_ability));*/
+	g_implants->push_back(new Implant("Head Implant: Sense Faded", I_HEAD, buffed_stat, requires_ability));*/
 
 	// Int implants
 	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(SHINING, INT), std::make_pair(FADED, SEN) };
 	requires_ability = std::vector<STAT>{ AGI, SEN, INT, PSY };
-	g_implants->push_back(new SmartImplant("Head Implant: Intelligence Shining / Sense faded", I_HEAD, buffed_stat, requires_ability));
+	g_implants->push_back(new Implant("Head Implant: Intelligence Shining / Sense faded", I_HEAD, buffed_stat, requires_ability));
 
 	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(BRIGHT, INT) };
 	requires_ability = std::vector<STAT>{ AGI, SEN, INT, PSY };
-	g_implants->push_back(new SmartImplant("Eye Implant: Intelligence Bright", I_EYES, buffed_stat, requires_ability));
+	g_implants->push_back(new Implant("Eye Implant: Intelligence Bright", I_EYES, buffed_stat, requires_ability));
 
 	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(FADED, INT) };
 	requires_ability = std::vector<STAT>{ AGI, SEN, INT, PSY };
-	g_implants->push_back(new SmartImplant("Ear Implant: Intelligence Faded", I_EAR, buffed_stat, requires_ability));
+	g_implants->push_back(new Implant("Ear Implant: Intelligence Faded", I_EAR, buffed_stat, requires_ability));
 
 	// Psy implants
 	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(SHINING, PSY) };
 	requires_ability = std::vector<STAT>{ AGI, SEN, INT, PSY };
-	g_implants->push_back(new SmartImplant("Head Implant: Psychic Shining", I_HEAD, buffed_stat, requires_ability));
+	g_implants->push_back(new Implant("Head Implant: Psychic Shining", I_HEAD, buffed_stat, requires_ability));
 
 	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(BRIGHT, PSY) };
 	requires_ability = std::vector<STAT>{ STR, STA, INT, PSY };
-	g_implants->push_back(new SmartImplant("Chest Implant: Psychic Bright", I_CHEST, buffed_stat, requires_ability));
+	g_implants->push_back(new Implant("Chest Implant: Psychic Bright", I_CHEST, buffed_stat, requires_ability));
 
 	buffed_stat = std::vector<std::pair<POTENCY, STAT>>{ std::make_pair(FADED, PSY) };
 	requires_ability = std::vector<STAT>{ AGI, SEN, INT };
-	g_implants->push_back(new SmartImplant("Ear Implant: Psychic Faded", I_EAR, buffed_stat, requires_ability));
+	g_implants->push_back(new Implant("Ear Implant: Psychic Faded", I_EAR, buffed_stat, requires_ability));
 
 	// Init stats
 	g_init_stats = { 95, 55, 58, 46, 68, 58, 224 };
-	g_stats->initStats(g_init_stats);
+	g_setup->initStats(g_init_stats);
 
 	// Welcome
 	std::cout << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" << std::endl;

@@ -18,16 +18,10 @@
     <ClCompile Include="Equippable.struct.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Stats.struct.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Includes.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SmartImplant.struct.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Setup.struct.cpp">
@@ -39,12 +33,12 @@
     <ClCompile Include="Strategies.struct.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Implant.struct.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Equippable.struct.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Stats.struct.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Includes.h">
@@ -53,13 +47,13 @@
     <ClInclude Include="Globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SmartImplant.struct.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Setup.struct.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Strategies.struct.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Implant.struct.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

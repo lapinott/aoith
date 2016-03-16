@@ -1,9 +1,9 @@
 #pragma once
 
-struct SmartImplant;
+struct Implant;
 struct Equippable;
 struct Setup;
-struct Stats;
+struct Setup;
 struct Strategies;
 
 enum STAT {
@@ -14,7 +14,7 @@ enum STAT {
 	INT,
 	PSY,
 	TREAT,
-	NUM_ABILITY
+	NUM_STAT
 };
 
 enum POTENCY {
@@ -34,7 +34,7 @@ unsigned int get_treatment_buff_amount_from_ql(POTENCY p, unsigned int ql);
 
 unsigned int get_equippable_id(Equippable* e);
 
-unsigned int get_implant_id(SmartImplant* i);
+unsigned int get_implant_id(Implant* i);
 
 bool equip_item_id(unsigned int item_id);
 
@@ -65,17 +65,14 @@ std::string get_slot_string(SLOTS s);
 
 bool handleCommand(std::string cmd);
 
-// Implants mapped by ID
-extern std::vector<SmartImplant*>* g_implants;
+// Implants
+extern std::vector<Implant*>* g_implants;
 
-// Equippables mapped by ID
+// Equippables
 extern std::vector<Equippable*>* g_equippables;
 
 // Setup
 extern Setup* g_setup;
-
-// Stat
-extern Stats* g_stats;
 
 // Strategies
 extern Strategies* g_strategies;

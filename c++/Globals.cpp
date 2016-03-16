@@ -1,22 +1,18 @@
 #include "Includes.h"
 #include "Globals.h"
 #include "Setup.struct.h"
-#include "Stats.struct.h"
-#include "SmartImplant.struct.h"
+#include "Implant.struct.h"
 #include "Equippable.struct.h"
 #include "Strategies.struct.h"
 
 // Implants mapped by ID
-std::vector<SmartImplant*>* g_implants = new std::vector<SmartImplant*>();
+std::vector<Implant*>* g_implants = new std::vector<Implant*>();
 
 // Equippables mapped by ID
 std::vector<Equippable*>* g_equippables = new std::vector<Equippable*>();
 
 // Setup
 Setup* g_setup = new Setup();
-
-// Stat
-Stats* g_stats = new Stats(0, 0, 0, 0, 0, 0, 0);
 
 // Strategies
 Strategies* g_strategies = new Strategies();
@@ -135,7 +131,7 @@ unsigned int get_equippable_id(Equippable* e) {
 	return -1;
 }
 
-unsigned int get_implant_id(SmartImplant* i) {
+unsigned int get_implant_id(Implant* i) {
 	for (unsigned int j = 0; j < g_equippables->size(); j++) {
 		if ((*g_implants)[j] == i) return j;
 	}
@@ -143,8 +139,8 @@ unsigned int get_implant_id(SmartImplant* i) {
 }
 
 bool equip_item_id(unsigned int item_id) {
-	if (item_id < g_implants->size()) g_setup->equipImplant(g_stats, (*g_implants)[item_id]);
-	else g_setup->equipEquippable(g_stats, (*g_equippables)[item_id - g_implants->size()]);
+	if (item_id < g_implants->size()) g_setup->equipImplant((*g_implants)[item_id]);
+	else g_setup->equipEquippable((*g_equippables)[item_id - g_implants->size()]);
 	return false;
 }
 
@@ -172,7 +168,7 @@ bool handleCommand(std::string cmd) {
 	}
 	else if (cmd == "ilist") {
 		std::cout << "  Available implants [ID] [SLOT] [BUFFS] [REQUIRES] Name :" << std::endl;
-		for (SmartImplant* i : *g_implants) {
+		for (Implant* i : *g_implants) {
 			std::string buffs = get_stat_string(i->buffed_stat[0].second);
 			if (i->buffed_stat.size() > 1) for (unsigned int j = 1; j < i->buffed_stat.size(); j++) buffs += (std::string("|") + get_stat_string(i->buffed_stat[j].second));
 			std::string requires = get_stat_string(i->requires_ability[0]);
@@ -213,7 +209,7 @@ bool handleCommand(std::string cmd) {
 		}
 	}
 	else if (cmd == "stats") {
-		g_stats->displayStats();
+		g_setup->displayStats();
 	}
 	else if (cmd == "setup") {
 		g_setup->displaySetup();
@@ -231,15 +227,15 @@ bool handleCommand(std::string cmd) {
 			std::stoul(sub_commands[6]),
 			std::stoul(sub_commands[7])
 		};
-		g_stats->initStats(g_init_stats);
-		g_stats->displayStats();
+		g_setup->initStats(g_init_stats);
+		g_setup->displayStats();
 	}
 	else if (sub_commands[0] == "equip" && std::regex_match(cmd, std::regex("equip\\s+\\d+.*"))) {
 		for (unsigned int i = 1; i < sub_commands.size(); i++) equip_item_id(std::stoi(sub_commands[i]));
 	}
 	else if (cmd == "unequip all") {
-		for (std::pair<SLOTS, Equippable*> se : g_setup->e_slots) if (se.second != nullptr) g_setup->removeEquippable(g_stats, se.second);
-		for (std::pair<SLOTS, SmartImplant*> si : g_setup->i_slots) if (si.second != nullptr) g_setup->removeImplant(g_stats, si.second);
+		for (std::pair<SLOTS, Equippable*> se : g_setup->e_slots) if (se.second != nullptr) g_setup->removeEquippable(se.second);
+		for (std::pair<SLOTS, Implant*> si : g_setup->i_slots) if (si.second != nullptr) g_setup->removeImplant(si.second);
 	}
 	else if (sub_commands[0] == "unequip" && std::regex_match(cmd, std::regex("unequip\\s+\\d+.*"))) {
 		//for (unsigned int i = 1; i < sub_commands.size(); i++) equip_item_id(std::stoi(sub_commands[i]));
@@ -250,6 +246,10 @@ bool handleCommand(std::string cmd) {
 	else if (cmd == "run 0") {
 		std::cout << "Now running Strategy 0" << std::endl << std::endl;
 		g_strategies->strategy_0();
+	}
+	else if (cmd == "run 1") {
+		std::cout << "Now running Strategy 1" << std::endl << std::endl;
+		g_strategies->strategy_1();
 	}
 	else {
 		std::cout << "Unknown or badly formatted command." << std::endl;

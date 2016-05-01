@@ -2,6 +2,16 @@
 	// Init stats
 	$stats = file_get_contents("init_stats.csv");
 	$stats = explode(",", $stats);
+	
+	// Add buffs
+	$stats[0] += (10 + 12 + 40 + 27);		// gaunt + exp + ps + behe
+	$stats[1] += (10 + 12 + 27 + 20);		// gaunt + exp + behe + ic
+	$stats[2] += (10 + 12 + 25);			// gaunt + exp + fg
+	$stats[3] += (10 + 12 + 15);			// gaunt + exp + es
+	$stats[4] += (10 + 12 + 23);			// gaunt + exp + ns
+	$stats[5] += (10 + 12 + 23);			// gaunt + exp + ns
+	$stats[6] += (20 + 80 + 100);			// exp + sfa + clinic
+	
 ?><!DOCTYPE html>
 <html>
 	<head>

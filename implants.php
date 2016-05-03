@@ -243,11 +243,11 @@
 ?>
 				</div>
 			</fieldset>
-			<fieldset id="ability_implants_container">
-				<legend>Ability implants</legend>
+			<fieldset id="implants_container">
+				<legend>Implants</legend>
 				<div><?php
 				
-				// Get items from file
+				// Get items from file - abilities
 				$ability_implants = Array();
 				$ability_implants['str'] = Array();
 				$ability_implants['sta'] = Array();
@@ -276,28 +276,21 @@
 				
 				// Print items
 				foreach ($ability_implants as $buff => $implants) {
-					echo "\t\t\t\t\t<fieldset>\r\n";
+					echo "\r\n\t\t\t\t\t<fieldset>\r\n";
 					if ($buff == 'str') $ability = "Strength";
 					else if ($buff == 'sta') $ability = "Stamina";
 					else if ($buff == 'agi') $ability = "Agility";
 					else if ($buff == 'sen') $ability = "Sense";
 					else if ($buff == 'int') $ability = "Intelligence";
 					else if ($buff == 'psy') $ability = "Psychic";
-					echo "\t\t\t\t\t\t<legend>$ability</legend>\r\n";
+					echo "\t\t\t\t\t\t<legend>$ability</legend>";
 					foreach ($implants as $implant) {
-						echo "\r\n\t\t\t\t\t\t<div id=\"".$implant['id']."\" class=\"list_equippable\" oncontextmenu=\"return equippable_mouse_right_click('".$implant['id']."');\" onclick=\"equippabble_mouse_click('".$implant['id']."');\" onmouseover=\"equippable_mouse_over('".$implant['id']."');\" onmouseout=\"equippable_mouse_out('".$implant['id']."');\">\r\n\t\t\t\t\t\t<div class=\"list_equippable_img\">\r\n\t\t\t\t\t\t\t<img src=\"items/img/".$implant['img']."\" alt=\"".$implant['name']."\"/></div>\r\n\t\t\t\t\t\t\t<div class=\"list_equippable_name\">".$implant['name']."\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>";
+						echo "\r\n\t\t\t\t\t\t\t<div id=\"".$implant['id']."\" class=\"list_equippable\" oncontextmenu=\"return equippable_mouse_right_click('".$implant['id']."');\" onclick=\"equippabble_mouse_click('".$implant['id']."');\" onmouseover=\"equippable_mouse_over('".$implant['id']."');\" onmouseout=\"equippable_mouse_out('".$implant['id']."');\">\r\n\t\t\t\t\t\t\t<div class=\"list_equippable_img\">\r\n\t\t\t\t\t\t\t\t<img src=\"items/img/".$implant['img']."\" alt=\"".$implant['name']."\"/></div>\r\n\t\t\t\t\t\t\t\t<div class=\"list_equippable_name\">".$implant['name']."\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>";
 					}
-					echo "\t\t\t\t\t</fieldset>\r\n"; 
+					echo "\r\n\t\t\t\t\t</fieldset>"; 
 				}
-				echo "\r\n";
-?>
-				</div>
-			</fieldset>
-			<fieldset id="treatment_implants_container">
-				<legend>Treatment implants</legend>
-				<div><?php
 				
-				// Get items from file
+				// Get items from file - treatment
 				$treatment_implants = Array();
 				$fhandle = fopen("items/treatment_implant_list.csv", "r");
 				$i = 0;
@@ -319,10 +312,12 @@
 				}
 				
 				// Print items
+				echo "\t\t\t\t\t<fieldset>\r\n";
+				echo "\t\t\t\t\t\t<legend>Treatment</legend>";
 				foreach ($treatment_implants as $implant) {
-					echo "\r\n\t\t\t\t\t<div id=\"".$implant['id']."\" class=\"list_equippable\" oncontextmenu=\"return equippable_mouse_right_click('".$implant['id']."');\" onclick=\"equippabble_mouse_click('".$implant['id']."');\" onmouseover=\"equippable_mouse_over('".$implant['id']."');\" onmouseout=\"equippable_mouse_out('".$implant['id']."');\">\r\n\t\t\t\t\t\t<div class=\"list_equippable_img\">\r\n\t\t\t\t\t\t\t<img src=\"items/img/".$implant['img']."\" alt=\"".$implant['name']."\"/></div>\r\n\t\t\t\t\t\t\t<div class=\"list_equippable_name\">".$implant['name']."\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>";
+					echo "\r\n\t\t\t\t\t\t<div id=\"".$implant['id']."\" class=\"list_equippable\" oncontextmenu=\"return equippable_mouse_right_click('".$implant['id']."');\" onclick=\"equippabble_mouse_click('".$implant['id']."');\" onmouseover=\"equippable_mouse_over('".$implant['id']."');\" onmouseout=\"equippable_mouse_out('".$implant['id']."');\">\r\n\t\t\t\t\t\t\t<div class=\"list_equippable_img\">\r\n\t\t\t\t\t\t\t\t<img src=\"items/img/".$implant['img']."\" alt=\"".$implant['name']."\"/></div>\r\n\t\t\t\t\t\t\t\t<div class=\"list_equippable_name\">".$implant['name']."\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>";
 				}
-				echo "\r\n";
+				echo "\r\n\t\t\t\t\t</fieldset>\r\n"; 
 ?>
 				</div>
 			</fieldset>

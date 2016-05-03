@@ -220,24 +220,18 @@ div.equippable_overlay > span, div.slot_overlay > span {
 	display:block;
 }
 
-fieldset#ability_implants_container {
+fieldset#implants_container {
 	border-radius:2px;
 	border:1px solid #aaa;
 	margin-top:0.5em;
 }
 
-fieldset#ability_implants_container fieldset {
+fieldset#implants_container fieldset {
 	display:inline-block;
 	border:1px solid #ccc;
 	border-radius:2px;
 }
 
-fieldset#ability_implants_container fieldset > legend {
+fieldset#implants_container fieldset > legend {
 	font-size:0.7em;
-}
-
-fieldset#treatment_implants_container {
-	border-radius:2px;
-	border:1px solid #aaa;
-	margin-top:0.5em;
 }
